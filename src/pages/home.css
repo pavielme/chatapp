@@ -1,0 +1,58 @@
+.listAvatar {
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.friendsList ul {
+    background: none;
+}
+
+.friendsList .friend {
+    display:block;
+    border-left: 3px solid rgba(0,0,0,0);
+    margin-bottom: 10px;
+}
+
+.newMessage {
+    border-color: blue!important;
+}
+
+.messageBar {
+    bottom:0;
+    position: fixed;
+}
+.Custom-MessageContent {
+    margin-top: calc(var(--f7-navbar-height) - var(--f7-navbar-height) - var(--f7-navbar-height));
+    height: 100%;
+    padding-bottom: var(--f7-messagebar-height);
+    width: 100%;
+    display: block;
+}
+
+.list-messages {
+    width: calc(100% - 20px);
+    height: auto;
+    display: block;
+    padding: 10px;
+}
+.messagecontainer {
+    width:calc(100% - 45px);
+    display:block;
+    border-left: 3px solid blue;
+    padding:10px;
+    font-size: 20px;
+}
+
+.messageTypeSend .messagecontainer {
+    border-color: red!important;
+}
+
+.messagename {
+    font-weight: bold;
+    color:blue;
+}
+
+.messageTypeSend .messagename {
+    color: red!important;
+}
+

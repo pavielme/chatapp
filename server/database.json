@@ -1,0 +1,291 @@
+{
+    "profile_1": {
+        "name": "SuperPavve",
+        "username": "paviel",
+        "room": true,
+        "friends": {
+            "room_1": {
+                "id": "profile_2",
+                "added": 1594532407647,
+                "last_change": 1594593753123,
+                "messages": [
+                    {
+                        "type": "send",
+                        "text": "Hejs",
+                        "opened": true,
+                        "ts": 1594533423977
+                    },
+                    {
+                        "type": "send",
+                        "text": "Hej",
+                        "opened": true,
+                        "ts": 1594533423977
+                    },
+                    {
+                        "type": "received",
+                        "text": "Hej tbk",
+                        "opened": true,
+                        "ts": 1594533423977
+                    },
+                    {
+                        "type": "send",
+                        "text": "test",
+                        "opened": true,
+                        "ts": 1594588104088
+                    },
+                    {
+                        "type": "send",
+                        "text": "dqwdqw",
+                        "opened": true,
+                        "ts": 1594592604378
+                    },
+                    {
+                        "type": "send",
+                        "text": "tegrfwe",
+                        "opened": true,
+                        "ts": 1594592642344
+                    },
+                    {
+                        "type": "send",
+                        "text": "degrwq",
+                        "opened": true,
+                        "ts": 1594592748488
+                    },
+                    {
+                        "type": "send",
+                        "text": "ghttherw",
+                        "opened": true,
+                        "ts": 1594592844187
+                    },
+                    {
+                        "type": "send",
+                        "text": "ythgrefwwq",
+                        "opened": true,
+                        "ts": 1594592910547
+                    },
+                    {
+                        "type": "send",
+                        "text": "ujtrer",
+                        "opened": true,
+                        "ts": 1594592954183
+                    },
+                    {
+                        "type": "send",
+                        "text": "uyterw",
+                        "opened": true,
+                        "ts": 1594592986950
+                    },
+                    {
+                        "type": "send",
+                        "text": "utjyrewf",
+                        "opened": true,
+                        "ts": 1594593051747
+                    },
+                    {
+                        "type": "send",
+                        "text": "ergewfq",
+                        "opened": true,
+                        "ts": 1594593096127
+                    },
+                    {
+                        "type": "send",
+                        "text": "trew",
+                        "opened": true,
+                        "ts": 1594593147777
+                    },
+                    {
+                        "type": "send",
+                        "text": "yjtyrterw",
+                        "opened": true,
+                        "ts": 1594593388726
+                    },
+                    {
+                        "type": "send",
+                        "text": "hej\nasdqw\nasddas",
+                        "opened": true,
+                        "ts": 1594593742691
+                    },
+                    {
+                        "type": "send",
+                        "text": "gergreg ergjer jeri er gjeriogj erioj gerijg eriojgio erjgio jeriogj eriojg erioj goerj gerio gjero gjeriogj erio gjeri gjerog ejr goierjg",
+                        "opened": true,
+                        "ts": 1594593753123
+                    }
+                ]
+            },
+            "room_2": {
+                "id": "profile_3",
+                "added": 1594532407647,
+                "last_change": 1594593542672,
+                "messages": [
+                    {
+                        "type": "send",
+                        "text": "Hej lovi",
+                        "opened": true,
+                        "ts": 1594533423977
+                    },
+                    {
+                        "type": "send",
+                        "text": "Hej lovi igen",
+                        "opened": true,
+                        "ts": 1594533423977
+                    },
+                    {
+                        "type": "received",
+                        "text": "Hej oooooo",
+                        "opened": true,
+                        "ts": 1594533423977
+                    },
+                    {
+                        "type": "send",
+                        "text": "ooo",
+                        "opened": true,
+                        "ts": 1594588333895
+                    },
+                    {
+                        "type": "send",
+                        "text": "thrhewfq",
+                        "opened": true,
+                        "ts": 1594593399140
+                    },
+                    {
+                        "type": "send",
+                        "text": "hello",
+                        "opened": true,
+                        "ts": 1594593542672
+                    }
+                ]
+            }
+        }
+    },
+    "profile_2": {
+        "name": "J",
+        "username": "babe",
+        "room": false,
+        "friends": {
+            "room_1": {
+                "id": "profile_1",
+                "added": 1594532407647,
+                "last_change": 1594593753123,
+                "messages": [
+                    {
+                        "type": "received",
+                        "text": "test",
+                        "opened": false,
+                        "ts": 1594588104088
+                    },
+                    {
+                        "type": "received",
+                        "text": "dqwdqw",
+                        "opened": false,
+                        "ts": 1594592604378
+                    },
+                    {
+                        "type": "received",
+                        "text": "tegrfwe",
+                        "opened": false,
+                        "ts": 1594592642344
+                    },
+                    {
+                        "type": "received",
+                        "text": "degrwq",
+                        "opened": false,
+                        "ts": 1594592748488
+                    },
+                    {
+                        "type": "received",
+                        "text": "ghttherw",
+                        "opened": false,
+                        "ts": 1594592844187
+                    },
+                    {
+                        "type": "received",
+                        "text": "ythgrefwwq",
+                        "opened": false,
+                        "ts": 1594592910547
+                    },
+                    {
+                        "type": "received",
+                        "text": "ujtrer",
+                        "opened": false,
+                        "ts": 1594592954183
+                    },
+                    {
+                        "type": "received",
+                        "text": "uyterw",
+                        "opened": false,
+                        "ts": 1594592986950
+                    },
+                    {
+                        "type": "received",
+                        "text": "utjyrewf",
+                        "opened": false,
+                        "ts": 1594593051747
+                    },
+                    {
+                        "type": "received",
+                        "text": "ergewfq",
+                        "opened": false,
+                        "ts": 1594593096127
+                    },
+                    {
+                        "type": "received",
+                        "text": "trew",
+                        "opened": false,
+                        "ts": 1594593147777
+                    },
+                    {
+                        "type": "received",
+                        "text": "yjtyrterw",
+                        "opened": false,
+                        "ts": 1594593388726
+                    },
+                    {
+                        "type": "received",
+                        "text": "hej\nasdqw\nasddas",
+                        "opened": false,
+                        "ts": 1594593742691
+                    },
+                    {
+                        "type": "received",
+                        "text": "gergreg ergjer jeri er gjeriogj erioj gerijg eriojgio erjgio jeriogj eriojg erioj goerj gerio gjero gjeriogj erio gjeri gjerog ejr goierjg",
+                        "opened": false,
+                        "ts": 1594593753123
+                    }
+                ]
+            }
+        }
+    },
+    "profile_3": {
+        "name": "Lovinator",
+        "username": "lovdel",
+        "room": false,
+        "friends": {
+            "room_2": {
+                "id": "profile_1",
+                "added": 1594532407647,
+                "last_change": 1594593542672,
+                "messages": [
+                    {
+                        "type": "received",
+                        "text": "ooo",
+                        "opened": false,
+                        "ts": 1594588333895
+                    },
+                    {
+                        "type": "received",
+                        "text": "thrhewfq",
+                        "opened": false,
+                        "ts": 1594593399140
+                    },
+                    {
+                        "type": "received",
+                        "text": "hello",
+                        "opened": false,
+                        "ts": 1594593542672
+                    }
+                ]
+            }
+        }
+    }
+}
