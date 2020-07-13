@@ -61,6 +61,7 @@ class Message extends React.Component {
                 {
                     type: 'send',
                     text: text,
+                    animation: true
                 }
             ];
 
@@ -79,14 +80,30 @@ class Message extends React.Component {
         }
         
     }
+
+    clearChat(){
+        const { messageTarget } = this.props.appPage.state;
+        const { socket } = this.$f7.passedParams;
+
+        socket.emit('clear room', this.props.appPage.state.user.id, messageTarget.room);
+
+        this.props.appPage.setState({
+            messagesData: []
+        });
+    }
+
     render() {
       const { messageTarget, messagesData } = this.props.appPage.state;
 
       return (
         <Tab id="tab-1">
-            <Navbar>
+            <Navbar
+                noShadow={true}
+                noHairline={true}
+            >
                 <NavTitle>{ messageTarget ? messageTarget.user.name : '' }</NavTitle>
                 <NavRight>
+                    <Link onClick={() => this.clearChat()} color="red" iconIos="f7:trash" iconMd="f7:trash"></Link>
                     <Link onClick={() => this.closeChat()} iconIos="f7:chevron_right" iconMd="f7:chevron_right"></Link>
                 </NavRight>
             </Navbar>
@@ -100,13 +117,15 @@ class Message extends React.Component {
                         <div key={index} className={`messagebox ${index === 0 ? 'firstmessage' : index === messagesData.length - 1 ? 'lastmessage' : ''} ${item.type === 'send' ? 'messageTypeSend' : 'messageTypeReceived'}`}>
                             <div className="messagename">{ this.showName(item, index, messageTarget ? messageTarget.user.name : false) }</div>
                             <div className={`messagecontainer`}>
-                                {item.text}
+                                <div className={item.animation ? 'animate__animated animate__fadeIn animate__faster' : ''}>{item.text}</div>
                             </div>
                         </div>
                     )) }
                 </div>
             </div>
             <Messagebar
+                noShadow={true}
+                noHairline={true}
                 className="messageBar"
                 placeholder="Meddelande"
             >

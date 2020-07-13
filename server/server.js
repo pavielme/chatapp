@@ -11,15 +11,27 @@ const databaseData = (id) => {
 }
 
 const checkMessage = (messages) => {
-    var newmessage = false;
+    var newmessage = 0;
 
     for(var i in messages) {
         if(messages[i].type === 'received' && !messages[i].opened){
-            newmessage = true;
+            newmessage++
         }
     }
 
     return newmessage;
+}
+
+const checkIsRoom = (id, room) => {
+  var data = databaseData(id);
+
+  if(data.room === room){
+    return 'chat';
+  } else if(data.room === false){
+    return 'push'
+  } else {
+    return 'inapp'
+  }
 }
 
 const setRoom = (id, room) => {
@@ -43,10 +55,21 @@ const setRead = (id, room) => {
 
   fs.writeFileSync('./database.json', JSON.stringify(data, null, 4));
 }
+
+const setToken = (id, token) => {
+  var read = fs.readFileSync('./database.json');
+  var data = JSON.parse(read);
+
+  data[id].token = token;
+
+  fs.writeFileSync('./database.json', JSON.stringify(data, null, 4));
+}
+
 io.on('connection', (socket) => {
-  socket.on('connect user', (id, callback) => {
+  socket.on('connect user', (id, token, callback) => {
     socket.username = id;
 
+    setToken(id, token);
     setRoom(id, true);
 
     callback(socket.id);
@@ -82,6 +105,8 @@ io.on('connection', (socket) => {
   socket.on('load messages', (id, room, callback) => {
     socket.join(room);
 
+    setRoom(id, room);
+
     var database = databaseData(id);
     var messages = database.friends[room].messages;
 
@@ -92,12 +117,33 @@ io.on('connection', (socket) => {
 
   socket.on('leave room', (id, room, callback) => {
     setRead(id, room);
+    setRoom(id, true);
+
     socket.leave(room);
     callback('left ' + room);
   });
 
+  socket.on('clear room', (id, room) => {
+    var read = fs.readFileSync('./database.json');
+    var data = JSON.parse(read);
+
+    data[id].friends[room].messages = [];
+
+    fs.writeFileSync('./database.json', JSON.stringify(data, null, 4));
+  });
+
   socket.on('send message', (id, target, text, callback) => {
-    socket.to(target.room).emit('receive message', text);
+
+    var status = checkIsRoom(target.user.id, target.room);
+
+    if(status === 'chat') {
+      socket.to(target.room).emit('receive message', text);
+    } else if(status === 'inapp'){
+      var name = databaseData(id).name;
+      io.emit('notification id_' + target.user.id, name);
+    } else if(status === 'push'){
+
+    }
 
     var read = fs.readFileSync('./database.json');
     var data = JSON.parse(read);

@@ -18,12 +18,14 @@ export default class AppPage extends React.Component {
   constructor(props){
     super(props)
 
+    const storage = window.localStorage;
+
     this.state = {
       page: null,
       user: {
-        id: 'profile_1',
-        name: 'SuperPavve',
-        username: 'paviel',
+        id: storage.getItem('id'),
+        name: storage.getItem('name'),
+        username: storage.getItem('paviel'),
       },
       friends: [],
       messageTarget: false,
@@ -31,11 +33,53 @@ export default class AppPage extends React.Component {
     }
   }
 
+  notification(name) {
+
+    var notificationFull = this.$f7.notification.create({
+      title: 'Chat',
+      titleRightText: 'nyss',
+      subtitle: 'Från',
+      text: name,
+      closeTimeout: 3000,
+    });
+
+    notificationFull.open();
+  }
+
   componentDidMount(){
     const { socket } = this.$f7.passedParams;
 
-    socket.emit('connect user', this.state.user.id, (socketid) => {
-      console.log(socketid);
+    if(window.plugins){
+      window.plugins.PushbotsPlugin.initialize("5f081210e5b4184a2021917b", {"android":{"sender_id":"264040976429"}});
+        
+      // Only with First time registration
+      window.plugins.PushbotsPlugin.on("registered", (token) => {
+        console.log("Registration Id:" + token);
+      });
+
+      window.plugins.PushbotsPlugin.on("user:ids", (data) => {
+        var token = data.token;
+
+        if(this.state.user.id){
+          socket.emit('connect user', this.state.user.id, token, (socketid) => {
+            console.log(socketid);
+          });
+        }
+      });
+    } else {
+      socket.emit('connect user', this.state.user.id, false, (socketid) => {
+        console.log(socketid);
+      });
+    }
+
+    socket.on('notification id_' + this.state.user.id, (name) => {
+      socket.emit('load friends', this.state.user.id, (res) => {
+          this.setState({
+              friends: res
+          });
+      });
+
+      this.notification(name);
     });
 
     socket.on('receive message', (text) => {
@@ -43,7 +87,8 @@ export default class AppPage extends React.Component {
         type: 'received',
         text: text,
         opened: true,
-        ts: new Date().getTime()          
+        ts: new Date().getTime(),
+        animation: true,          
       }];
       
       this.setState({
@@ -74,24 +119,35 @@ export default class AppPage extends React.Component {
               var newPage;
 
               if(state === 'Home'){
-                newPage = 'Message'
+                newPage = 'Message';
+
+                setTimeout(() => {
+                  this.$f7.messagebar.get('.messageBar').focus();
+                }, 100);
+                
               } else if(state === 'Message') {
                 newPage = 'Home';
                 const { socket } = this.$f7.passedParams;
 
-                socket.emit('load friends', this.state.user.id, (res) => {
-                    this.setState({
-                        friends: res
-                    });
-                });
-
                 socket.emit('leave room', this.state.user.id, this.state.messageTarget.room, (res) => {
                   console.log(res);
+
+                  socket.emit('load friends', this.state.user.id, (res) => {
+                      this.setState({
+                          friends: res
+                      });
+                  });
                 });
 
                 this.setState({
                   messageTarget: false,
+                  messagesData: []
                 });
+
+                setTimeout(() => {
+                  this.$f7.messagebar.get('.messageBar').clear();
+                  this.$f7.messagebar.get('.messageBar').blur();
+                }, 100);
               } else {
                 newPage = 'Home'
               }

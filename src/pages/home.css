@@ -7,10 +7,26 @@
     background: none;
 }
 
+.navbar-bg {
+    background-color: #fff;
+}
+
 .friendsList .friend {
     display:block;
     border-left: 3px solid rgba(0,0,0,0);
     margin-bottom: 10px;
+}
+
+.friend .item-title {
+    font-weight: bold!important;
+}
+
+.friend .badge {
+    margin-left:10px;
+}
+
+.page-content .searchbar {
+    margin:0!important;
 }
 
 .newMessage {
@@ -35,6 +51,8 @@
     display: block;
     padding: 10px;
 }
+
+
 .messagecontainer {
     width:calc(100% - 45px);
     display:block;
@@ -56,3 +74,6 @@
     color: red!important;
 }
 
+.messagebar:before {
+    display:none;
+}

@@ -17,14 +17,16 @@
     "cordova-ios": "^6.1.0",
     "cordova-plugin-keyboard": "^1.2.0",
     "cordova-plugin-splashscreen": "^5.0.4",
-    "cordova-plugin-statusbar": "^2.4.3"
+    "cordova-plugin-statusbar": "^2.4.3",
+    "pushbots-cordova-plugin": "1.6.15-rc8"
   },
   "cordova": {
     "plugins": {
       "cordova-plugin-statusbar": {},
       "cordova-plugin-keyboard": {},
       "cordova-plugin-splashscreen": {},
-      "cordova-plugin-whitelist": {}
+      "cordova-plugin-whitelist": {},
+      "pushbots-cordova-plugin": {}
     },
     "platforms": [
       "ios",

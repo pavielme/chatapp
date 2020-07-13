@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Tab, Navbar, NavTitle, List, ListItem, NavTitleLarge,
+  Tab, Navbar, NavTitle, List, ListItem, NavRight, Link, Searchbar
 } from 'framework7-react';
 
 class Friends extends React.Component {
@@ -70,8 +70,27 @@ class Friends extends React.Component {
 
       return (
         <Tab id="tab-2" tabActive className="page-content">
-        <Navbar>
+        <Navbar
+            noShadow={true}
+            noHairline={true}
+        >
           <NavTitle>Chat</NavTitle>
+          <NavRight>
+              <Link searchbarEnable=".searchbarComponent" iconIos="f7:search" iconAurora="f7:search" iconMd="material:search"></Link>
+          </NavRight>
+
+          <Searchbar
+                className="searchbarComponent"
+                expandable
+                searchContainer=".friendsList"
+                searchIn=".item-title"
+                disableButton={!this.$theme.aurora}
+                placeholder="Sök vän"
+                disableButtonText="Avbryt"
+                backdrop={false}
+                noShadow={true}
+                noHairline={true}
+          ></Searchbar>
         </Navbar>
         <List inset mediaList noHairlines noHairlinesBetween className="friendsList">
         { friends.map((item, index) => (
@@ -85,7 +104,10 @@ class Friends extends React.Component {
                 link
                 title={item.user.name}
                 subtitle={`@${item.user.username}`}
-                after={this.timestampString(item.message.last)}
+                badge={item.message.new}
+                badgeColor="red"
+
+                after={this.timestampString(item.message.last)}        
                 
             >
                 <img slot="media" className="listAvatar" src="https://www.legatowebtech.com/wp-content/uploads/2019/01/avatar-372-456324.png" width="44" />
