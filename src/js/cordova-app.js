@@ -116,6 +116,7 @@ var cordovaApp = {
         // Keyboard is going to be opened
         document.body.style.height = `calc(100% - ${keyboardHeight}px)`;
         $('html').addClass('device-with-keyboard');
+        alert(event.keyboardHeight);
       } else {
         // Keyboard is going to be closed
         document.body.style.height = '';

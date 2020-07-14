@@ -20,14 +20,13 @@ export default class AppPage extends React.Component {
 
     const storage = window.localStorage;
 
+    const snapshot = storage.getItem('snapshot');
+
     this.state = {
       page: null,
-      user: {
-        id: storage.getItem('id'),
-        name: storage.getItem('name'),
-        username: storage.getItem('paviel'),
-      },
-      friends: [],
+      user: JSON.parse(storage.getItem('loginData')),
+      token: false,
+      friends: snapshot ? JSON.parse(snapshot) : [],
       messageTarget: false,
       messagesData: [],
     }
@@ -49,35 +48,25 @@ export default class AppPage extends React.Component {
   componentDidMount(){
     const { socket } = this.$f7.passedParams;
 
-    if(window.plugins){
-      window.plugins.PushbotsPlugin.initialize("5f081210e5b4184a2021917b", {"android":{"sender_id":"264040976429"}});
-        
-      // Only with First time registration
-      window.plugins.PushbotsPlugin.on("registered", (token) => {
-        console.log("Registration Id:" + token);
-      });
+    socket.open();
 
-      window.plugins.PushbotsPlugin.on("user:ids", (data) => {
-        var token = data.token;
-
-        if(this.state.user.id){
-          socket.emit('connect user', this.state.user.id, token, (socketid) => {
-            console.log(socketid);
-          });
+    document.addEventListener("visibilitychange", () => {
+        if (document.visibilityState === 'visible') {
+          window.location.reload();
+        } else {
+          document.body.hidden = true;
+          socket.close();
         }
-      });
-    } else {
-      socket.emit('connect user', this.state.user.id, false, (socketid) => {
-        console.log(socketid);
-      });
-    }
+    });
+    
+    socket.on('connect', () => {
+      this.initApp();
+    });
+
+    
 
     socket.on('notification id_' + this.state.user.id, (name) => {
-      socket.emit('load friends', this.state.user.id, (res) => {
-          this.setState({
-              friends: res
-          });
-      });
+      this.loadFriends();
 
       this.notification(name);
     });
@@ -99,6 +88,50 @@ export default class AppPage extends React.Component {
     });
   }
 
+  loadFriends(){
+    const { socket } = this.$f7.passedParams;
+
+    socket.emit('load friends', this.state.user.id, (res) => {
+        const storage = window.localStorage;
+
+        //snapshot
+        storage.setItem('snapshot', JSON.stringify(res));
+
+        this.setState({
+            friends: res
+        });
+    });
+  }
+
+  initApp(){
+    const { socket } = this.$f7.passedParams;
+
+    if(window.plugins){
+      window.plugins.PushbotsPlugin.initialize("5f081210e5b4184a2021917b", {"android":{"sender_id":"264040976429"}});
+        
+      // Only with First time registration
+      window.plugins.PushbotsPlugin.on("registered", (token) => {
+        console.log("Registration Id:" + token);
+      });
+
+      window.plugins.PushbotsPlugin.on("user:ids", (data) => {
+        var token = data.token;
+
+          this.setState({
+            token: token
+          });
+
+          socket.emit('set Token', this.state.user.id, token, (res) => {
+            console.log('Token:' + res);
+          });
+        
+      });
+    } 
+      socket.emit('connect user', this.state.user.id, (socketid) => {
+        console.log('Socket ID: ' + socketid);
+      });
+    
+  }
   scrollToBottom(){
     var container = this.$$('.Custom-MessageContent');
     container.scrollTop(container[0].scrollHeight);
@@ -121,33 +154,29 @@ export default class AppPage extends React.Component {
               if(state === 'Home'){
                 newPage = 'Message';
 
-                setTimeout(() => {
-                  this.$f7.messagebar.get('.messageBar').focus();
-                }, 100);
                 
               } else if(state === 'Message') {
                 newPage = 'Home';
+                this.$f7.swiper.get('.pageTabs').allowSlidePrev = false;
+                this.$f7.swiper.get('.pageTabs').allowSlideNext = false;
+
                 const { socket } = this.$f7.passedParams;
 
                 socket.emit('leave room', this.state.user.id, this.state.messageTarget.room, (res) => {
                   console.log(res);
 
-                  socket.emit('load friends', this.state.user.id, (res) => {
-                      this.setState({
-                          friends: res
-                      });
-                  });
-                });
-
-                this.setState({
-                  messageTarget: false,
-                  messagesData: []
+                  this.loadFriends();
                 });
 
                 setTimeout(() => {
                   this.$f7.messagebar.get('.messageBar').clear();
                   this.$f7.messagebar.get('.messageBar').blur();
-                }, 100);
+
+                  this.setState({
+                    messageTarget: false,
+                    messagesData: []
+                  });
+                }, 300);
               } else {
                 newPage = 'Home'
               }

@@ -4,3 +4,7 @@
 }
 
 /* Your app custom styles here */
+
+body, html {
+  background: #121212;
+}

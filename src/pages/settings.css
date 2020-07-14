@@ -1,0 +1,14 @@
+.profileAvatar {
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profileName {
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.profileUsername {
+    font-size: 19px;
+    opacity: .8;
+}

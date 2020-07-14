@@ -21,7 +21,10 @@ export default class extends React.Component {
         theme: 'auto', // Automatic theme detection
 
 
-        socket: io('http://64.225.125.57:3000'),
+        socket: io('https://64.225.125.57:3000', {
+          forceNew: true,
+          autoConnect: false,
+        }),
         // App routes
         routes: routes,
 
@@ -35,6 +38,8 @@ export default class extends React.Component {
         statusbar: {
           iosOverlaysWebView: true,
           androidOverlaysWebView: false,
+          androidBackgroundColor: '#202020',
+          androidTextColor: 'white',
         },
       },
 
@@ -42,7 +47,7 @@ export default class extends React.Component {
   }
   render() {
     return (
-      <App params={ this.state.f7params }>
+      <App params={ this.state.f7params } themeDark>
 
         {/* Your main view, should have "view-main" class */}
         <View main className="safe-areas" url="/" />
@@ -58,6 +63,8 @@ export default class extends React.Component {
         cordovaApp.init(f7);
       }
       // Call F7 APIs here
+
+      
     });
   }
 }

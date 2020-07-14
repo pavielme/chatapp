@@ -2,47 +2,233 @@
     "profile_1": {
         "name": "SuperPavve",
         "username": "paviel",
-        "room": true,
-        "token": false,
+        "password": "paviel123",
+        "room": false,
+        "token": "fYT_8YQYIT8:APA91bH-UUV9GwswK4qMwHSPuKJo54dXLECOOB0m6Fpp06jC8uKiWNsyk4pjkekcZGpBso19sVHXW-WVseGTcAYs4Lq_-POLhh5MhtKNDhS3AUb02Tyqm5q6UNoXYp2hKrxPGExlRyNQ",
         "friends": {
             "room_1": {
                 "id": "profile_2",
                 "added": 1594532407647,
-                "last_change": 1594622741576,
-                "messages": []
+                "last_change": 1594733091854,
+                "messages": [
+                    {
+                        "type": "send",
+                        "text": "Hello",
+                        "opened": true,
+                        "ts": 1594723465877
+                    },
+                    {
+                        "type": "received",
+                        "text": "Hello",
+                        "opened": true,
+                        "ts": 1594723497093
+                    },
+                    {
+                        "type": "send",
+                        "text": "eajseqw",
+                        "opened": true,
+                        "ts": 1594726468982
+                    },
+                    {
+                        "type": "send",
+                        "text": "helloooo",
+                        "opened": true,
+                        "ts": 1594727624427
+                    },
+                    {
+                        "type": "send",
+                        "text": "hellooooooooooooooooo",
+                        "opened": true,
+                        "ts": 1594727639242
+                    },
+                    {
+                        "type": "send",
+                        "text": "hello",
+                        "opened": true,
+                        "ts": 1594731073579
+                    },
+                    {
+                        "type": "received",
+                        "text": "Hello",
+                        "opened": true,
+                        "ts": 1594731091013
+                    },
+                    {
+                        "type": "send",
+                        "text": "Hej",
+                        "opened": true,
+                        "ts": 1594732933504
+                    },
+                    {
+                        "type": "received",
+                        "text": "Hhgghggg ut om",
+                        "opened": true,
+                        "ts": 1594733054390
+                    },
+                    {
+                        "type": "send",
+                        "text": "Oj i ha g",
+                        "opened": true,
+                        "ts": 1594733062127
+                    },
+                    {
+                        "type": "send",
+                        "text": "It yttuj",
+                        "opened": true,
+                        "ts": 1594733067827
+                    },
+                    {
+                        "type": "send",
+                        "text": "U ut ui u",
+                        "opened": true,
+                        "ts": 1594733078657
+                    },
+                    {
+                        "type": "received",
+                        "text": "Yghg i kg y",
+                        "opened": false,
+                        "ts": 1594733091854
+                    }
+                ]
             },
             "room_2": {
                 "id": "profile_3",
                 "added": 1594532407647,
-                "last_change": 1594593542672,
-                "messages": []
+                "last_change": 1594709476083,
+                "messages": [
+                    {
+                        "type": "send",
+                        "text": "Oooo",
+                        "opened": true,
+                        "ts": 1594674502036
+                    },
+                    {
+                        "type": "send",
+                        "text": "Ooooooo",
+                        "opened": true,
+                        "ts": 1594678329907
+                    },
+                    {
+                        "type": "send",
+                        "text": "Oooo",
+                        "opened": true,
+                        "ts": 1594709473436
+                    },
+                    {
+                        "type": "send",
+                        "text": "Hello",
+                        "opened": true,
+                        "ts": 1594709476083
+                    }
+                ]
             }
         }
     },
     "profile_2": {
         "name": "J",
         "username": "babe",
-        "room": true,
-        "token": false,
+        "password": "babe123",
+        "room": false,
         "friends": {
             "room_1": {
                 "id": "profile_1",
                 "added": 1594532407647,
-                "last_change": 1594622741576,
-                "messages": []
+                "last_change": 1594733091854,
+                "messages": [
+                    {
+                        "type": "received",
+                        "text": "Hello",
+                        "opened": true,
+                        "ts": 1594723465877
+                    },
+                    {
+                        "type": "send",
+                        "text": "Hello",
+                        "opened": true,
+                        "ts": 1594723497093
+                    },
+                    {
+                        "type": "received",
+                        "text": "eajseqw",
+                        "opened": true,
+                        "ts": 1594726468982
+                    },
+                    {
+                        "type": "received",
+                        "text": "helloooo",
+                        "opened": true,
+                        "ts": 1594727624427
+                    },
+                    {
+                        "type": "received",
+                        "text": "hellooooooooooooooooo",
+                        "opened": true,
+                        "ts": 1594727639242
+                    },
+                    {
+                        "type": "received",
+                        "text": "hello",
+                        "opened": true,
+                        "ts": 1594731073579
+                    },
+                    {
+                        "type": "send",
+                        "text": "Hello",
+                        "opened": true,
+                        "ts": 1594731091013
+                    },
+                    {
+                        "type": "received",
+                        "text": "Hej",
+                        "opened": true,
+                        "ts": 1594732933504
+                    },
+                    {
+                        "type": "send",
+                        "text": "Hhgghggg ut om",
+                        "opened": true,
+                        "ts": 1594733054390
+                    },
+                    {
+                        "type": "received",
+                        "text": "Oj i ha g",
+                        "opened": true,
+                        "ts": 1594733062127
+                    },
+                    {
+                        "type": "received",
+                        "text": "It yttuj",
+                        "opened": false,
+                        "ts": 1594733067827
+                    },
+                    {
+                        "type": "received",
+                        "text": "U ut ui u",
+                        "opened": false,
+                        "ts": 1594733078657
+                    },
+                    {
+                        "type": "send",
+                        "text": "Yghg i kg y",
+                        "opened": true,
+                        "ts": 1594733091854
+                    }
+                ]
             }
-        }
+        },
+        "token": "dAcJ1O0W9GM:APA91bEoBGmsL1YjQg1llcgYmSjIk-8_JfRuMqJNcow7XfpPzVqCEwoACqiB7hlLGqo8iTGx9fHg16eIB8bJHh77rOGrBYIicizx9o3bgeHfi5Xq9Mf-JY3Bn27ay2DMt0AfC0-E6b5C"
     },
     "profile_3": {
         "name": "Lovinator",
         "username": "lovdel",
+        "password": "lovi123",
         "room": false,
         "token": false,
         "friends": {
             "room_2": {
                 "id": "profile_1",
                 "added": 1594532407647,
-                "last_change": 1594593542672,
+                "last_change": 1594709476083,
                 "messages": [
                     {
                         "type": "received",
@@ -61,6 +247,30 @@
                         "text": "hello",
                         "opened": false,
                         "ts": 1594593542672
+                    },
+                    {
+                        "type": "received",
+                        "text": "Oooo",
+                        "opened": false,
+                        "ts": 1594674502036
+                    },
+                    {
+                        "type": "received",
+                        "text": "Ooooooo",
+                        "opened": false,
+                        "ts": 1594678329907
+                    },
+                    {
+                        "type": "received",
+                        "text": "Oooo",
+                        "opened": false,
+                        "ts": 1594709473436
+                    },
+                    {
+                        "type": "received",
+                        "text": "Hello",
+                        "opened": false,
+                        "ts": 1594709476083
                     }
                 ]
             }

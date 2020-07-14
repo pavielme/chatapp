@@ -1,15 +1,18 @@
 
 import HomePage from '../pages/home.jsx';
 import LoginPage from '../pages/login.jsx';
+import SettingsPage from '../pages/settings.jsx';
+
+var loginData = window.localStorage.getItem('loginData');
 
 var routes = [
   {
     path: '/',
-    component: LoginPage,
+    component: loginData ? HomePage : LoginPage,
   },
   {
-    path: '/Home',
-    component: HomePage,
+    path: '/Settings',
+    component: SettingsPage,
   },
 ];
 
