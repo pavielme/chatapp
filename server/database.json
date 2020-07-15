@@ -5,12 +5,12 @@
         "password": "paviel123",
         "room": false,
         "avatar": "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/49ec1464-d899-400a-b608-c48c76b500d2/ddlby97-f31bd202-49ef-4391-995a-e08a03e9a0f8.jpg/v1/fill/w_900,h_900,q_75,strp/baby_yoda_by_patrickbrown_ddlby97-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3siaGVpZ2h0IjoiPD05MDAiLCJwYXRoIjoiXC9mXC80OWVjMTQ2NC1kODk5LTQwMGEtYjYwOC1jNDhjNzZiNTAwZDJcL2RkbGJ5OTctZjMxYmQyMDItNDllZi00MzkxLTk5NWEtZTA4YTAzZTlhMGY4LmpwZyIsIndpZHRoIjoiPD05MDAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.7bOQXtROBbXvM_k9pGmUYmE-wb97rfR92tgN1xj1wNk",
-        "token": "dBeugr24wHI:APA91bGyM-LUDQvBJPHFBlGkvBJDb51cD68heiDFU4llsGuGfaYCAZBCoAnOEjprIj1dNID2AXfl4BUONOvkZhsnci6qThP8thZRkdB80iD9-xZsUT-wS0I2ZZaQ942yhrMYKyEf_eT4",
+        "token": "fGTgkA1b_f0:APA91bFqsjuHRE1DvkV1AscZr3pba_ZtjiHjhwnYU1SMTYD-y-MNoaD18GYnXnTuhQO0BI1d8t0mNtCl6uLtJaDTonp1qb5-REfwH7UWZJMMLja74NejFCx1f_OQaWn3gdQDsg5rG9s5",
         "friends": {
             "room_1": {
                 "id": "profile_2",
                 "added": 1594532407647,
-                "last_change": 1594798038242,
+                "last_change": 1594801165321,
                 "messages": [
                     {
                         "type": "received",
@@ -75,56 +75,188 @@
                     {
                         "type": "received",
                         "text": "test offline",
-                        "opened": false,
+                        "opened": true,
                         "ts": 1594797656334
                     },
                     {
                         "type": "received",
                         "text": "adqwdwq",
-                        "opened": false,
+                        "opened": true,
                         "ts": 1594797846214
                     },
                     {
                         "type": "received",
                         "text": "wefwefwe",
-                        "opened": false,
+                        "opened": true,
                         "ts": 1594797931002
                     },
                     {
                         "type": "received",
                         "text": "wefewfew",
-                        "opened": false,
+                        "opened": true,
                         "ts": 1594797931168
                     },
                     {
                         "type": "received",
                         "text": "regwsefwe",
-                        "opened": false,
+                        "opened": true,
                         "ts": 1594797931171
                     },
                     {
                         "type": "received",
                         "text": "qwdwqdwq",
-                        "opened": false,
+                        "opened": true,
                         "ts": 1594798037546
                     },
                     {
                         "type": "received",
                         "text": "qwdwqd",
-                        "opened": false,
+                        "opened": true,
                         "ts": 1594798038237
                     },
                     {
                         "type": "received",
                         "text": "qwdwqd",
-                        "opened": false,
+                        "opened": true,
                         "ts": 1594798038239
                     },
                     {
                         "type": "received",
                         "text": "d",
-                        "opened": false,
+                        "opened": true,
                         "ts": 1594798038242
+                    },
+                    {
+                        "type": "send",
+                        "text": "Ingen internet",
+                        "opened": true,
+                        "ts": 1594799489282
+                    },
+                    {
+                        "type": "send",
+                        "text": "Kan gck",
+                        "opened": true,
+                        "ts": 1594799580864
+                    },
+                    {
+                        "type": "send",
+                        "text": "Keljdnele",
+                        "opened": true,
+                        "ts": 1594799623410
+                    },
+                    {
+                        "type": "send",
+                        "text": "Nenenkw",
+                        "opened": true,
+                        "ts": 1594799628429
+                    },
+                    {
+                        "type": "send",
+                        "text": "Nenenke",
+                        "opened": true,
+                        "ts": 1594799628433
+                    },
+                    {
+                        "type": "received",
+                        "text": "dwqdqw",
+                        "opened": false,
+                        "ts": 1594800323616
+                    },
+                    {
+                        "type": "received",
+                        "text": "dwqdwqd",
+                        "opened": false,
+                        "ts": 1594800323791
+                    },
+                    {
+                        "type": "received",
+                        "text": "qwdwqdwqd",
+                        "opened": false,
+                        "ts": 1594800323794
+                    },
+                    {
+                        "type": "received",
+                        "text": "wqd",
+                        "opened": false,
+                        "ts": 1594800323797
+                    },
+                    {
+                        "type": "received",
+                        "text": "wqdwqdwq",
+                        "opened": false,
+                        "ts": 1594800323801
+                    },
+                    {
+                        "type": "received",
+                        "text": "wqdwq",
+                        "opened": false,
+                        "ts": 1594800497406
+                    },
+                    {
+                        "type": "received",
+                        "text": "dwqd",
+                        "opened": false,
+                        "ts": 1594800498079
+                    },
+                    {
+                        "type": "received",
+                        "text": "wqd",
+                        "opened": false,
+                        "ts": 1594800498082
+                    },
+                    {
+                        "type": "received",
+                        "text": "wqdwq",
+                        "opened": false,
+                        "ts": 1594800498085
+                    },
+                    {
+                        "type": "received",
+                        "text": "dwqd",
+                        "opened": false,
+                        "ts": 1594800498088
+                    },
+                    {
+                        "type": "received",
+                        "text": "dwqdwq",
+                        "opened": false,
+                        "ts": 1594800967233
+                    },
+                    {
+                        "type": "received",
+                        "text": "dwq",
+                        "opened": false,
+                        "ts": 1594800967476
+                    },
+                    {
+                        "type": "received",
+                        "text": "dwq",
+                        "opened": false,
+                        "ts": 1594800967479
+                    },
+                    {
+                        "type": "received",
+                        "text": "dwq",
+                        "opened": false,
+                        "ts": 1594801164632
+                    },
+                    {
+                        "type": "received",
+                        "text": "dwq",
+                        "opened": false,
+                        "ts": 1594801165312
+                    },
+                    {
+                        "type": "received",
+                        "text": "dwq",
+                        "opened": false,
+                        "ts": 1594801165316
+                    },
+                    {
+                        "type": "received",
+                        "text": "dwq",
+                        "opened": false,
+                        "ts": 1594801165321
                     }
                 ]
             },
@@ -184,12 +316,12 @@
         "username": "babe",
         "password": "babe123",
         "avatar": "https://i.pinimg.com/originals/85/73/67/857367b94d212135510084f9802e621c.jpg",
-        "room": false,
+        "room": "room_1",
         "friends": {
             "room_1": {
                 "id": "profile_1",
                 "added": 1594532407647,
-                "last_change": 1594798038242,
+                "last_change": 1594801165321,
                 "messages": [
                     {
                         "type": "send",
@@ -304,6 +436,138 @@
                         "text": "d",
                         "opened": true,
                         "ts": 1594798038242
+                    },
+                    {
+                        "type": "received",
+                        "text": "Ingen internet",
+                        "opened": true,
+                        "ts": 1594799489282
+                    },
+                    {
+                        "type": "received",
+                        "text": "Kan gck",
+                        "opened": true,
+                        "ts": 1594799580864
+                    },
+                    {
+                        "type": "received",
+                        "text": "Keljdnele",
+                        "opened": true,
+                        "ts": 1594799623410
+                    },
+                    {
+                        "type": "received",
+                        "text": "Nenenkw",
+                        "opened": true,
+                        "ts": 1594799628429
+                    },
+                    {
+                        "type": "received",
+                        "text": "Nenenke",
+                        "opened": true,
+                        "ts": 1594799628433
+                    },
+                    {
+                        "type": "send",
+                        "text": "dwqdqw",
+                        "opened": true,
+                        "ts": 1594800323616
+                    },
+                    {
+                        "type": "send",
+                        "text": "dwqdwqd",
+                        "opened": true,
+                        "ts": 1594800323791
+                    },
+                    {
+                        "type": "send",
+                        "text": "qwdwqdwqd",
+                        "opened": true,
+                        "ts": 1594800323794
+                    },
+                    {
+                        "type": "send",
+                        "text": "wqd",
+                        "opened": true,
+                        "ts": 1594800323797
+                    },
+                    {
+                        "type": "send",
+                        "text": "wqdwqdwq",
+                        "opened": true,
+                        "ts": 1594800323801
+                    },
+                    {
+                        "type": "send",
+                        "text": "wqdwq",
+                        "opened": true,
+                        "ts": 1594800497406
+                    },
+                    {
+                        "type": "send",
+                        "text": "dwqd",
+                        "opened": true,
+                        "ts": 1594800498079
+                    },
+                    {
+                        "type": "send",
+                        "text": "wqd",
+                        "opened": true,
+                        "ts": 1594800498082
+                    },
+                    {
+                        "type": "send",
+                        "text": "wqdwq",
+                        "opened": true,
+                        "ts": 1594800498085
+                    },
+                    {
+                        "type": "send",
+                        "text": "dwqd",
+                        "opened": true,
+                        "ts": 1594800498088
+                    },
+                    {
+                        "type": "send",
+                        "text": "dwqdwq",
+                        "opened": true,
+                        "ts": 1594800967233
+                    },
+                    {
+                        "type": "send",
+                        "text": "dwq",
+                        "opened": true,
+                        "ts": 1594800967476
+                    },
+                    {
+                        "type": "send",
+                        "text": "dwq",
+                        "opened": true,
+                        "ts": 1594800967479
+                    },
+                    {
+                        "type": "send",
+                        "text": "dwq",
+                        "opened": true,
+                        "ts": 1594801164632
+                    },
+                    {
+                        "type": "send",
+                        "text": "dwq",
+                        "opened": true,
+                        "ts": 1594801165312
+                    },
+                    {
+                        "type": "send",
+                        "text": "dwq",
+                        "opened": true,
+                        "ts": 1594801165316
+                    },
+                    {
+                        "type": "send",
+                        "text": "dwq",
+                        "opened": true,
+                        "ts": 1594801165321
                     }
                 ]
             }

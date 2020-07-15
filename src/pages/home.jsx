@@ -58,17 +58,41 @@ export default class AppPage extends React.Component {
           socket.close();
         }
     });
-    
+
     socket.on('connect', () => {
       var queued = JSON.parse(window.localStorage.getItem('queued message'));
 
-      if(queued && queued.length){
-        for(var i in queued){
+      if(queued && queued.length){       
+        for (var i in queued) {
           socket.emit('send message', this.state.user.id, queued[i].messageTarget, queued[i].text, (res) => {
 
           });
+
         }
-        
+
+        if (this.state.messageTarget) {
+        socket.emit('snapshot messages', this.state.user.id, this.state.messageTarget.room, (snapshot) => {
+          this.setState({
+            messagesData: snapshot,
+          });
+        });
+        }
+        var messages = queued.length;
+        var messagesProg = (100 / messages);
+
+        var progress = 0;
+        var sending = this.$f7.dialog.progress('Skickar', progress);
+        sending.setText('Skickar 1 av ' + messages + ' meddelande');
+        var interval = setInterval(() => {
+          progress += messagesProg;
+          sending.setProgress(progress);
+          sending.setText('Skickar ' + ((progress / messagesProg)) + ' av ' + messages + ' meddelande');
+          if (progress === 100) {
+            
+            clearInterval(interval);
+            sending.close();
+          }
+        }, 300);
       }
       
 

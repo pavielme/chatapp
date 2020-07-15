@@ -14,6 +14,7 @@ class Message extends React.Component {
             targetTyping: false,
             messageHeight: document.body.clientHeight,
             keyboardHeight: false,
+            lostConnection: false,
         }
 
         const { socket } = this.$f7.passedParams;
@@ -38,7 +39,23 @@ class Message extends React.Component {
     }
 
     componentDidMount(){
-       
+        const { socket } = this.$f7.passedParams;
+
+        socket.on('disconnect', () => {
+            this.setState({
+                lostConnect: true,
+            });
+
+            console.log('LOST CONNECTION');
+
+            this.scrollToBottom();
+        });
+
+        socket.on('connect', () => {
+            this.setState({
+                lostConnect: false,
+            });
+        });
     }
     messageHandler(state, index){
         if(state === 'start'){
@@ -380,7 +397,7 @@ class Message extends React.Component {
 
         setTimeout(() => {
             this.scrollToBottom();
-        }, 100);
+        }, 300);
         
     }
 

@@ -74,7 +74,9 @@ class Friends extends React.Component {
                 });
 
                 if(duration < 300) {
+                    this.$f7.swiper.get('.pageTabs').allowSlidePrev = true;
                     this.$f7.tab.show('#tab-1');
+                    this.$f7.swiper.get('.pageTabs').allowSlidePrev = false;
                 } else {
                     setTimeout(() => {
                         if(this.props.appPage.state.page === 'Home'){
