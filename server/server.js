@@ -391,8 +391,10 @@ io.on('connection', (socket) => {
 
     data[target.user.id].friends[target.room].last_change = currenttimestamp;
 
-    fs.writeFileSync('./database.json', JSON.stringify(data, null, 4));
+    fs.writeFileSync('./database.json', JSON.stringify(data, null, 4))
+    ;
 
+    callback(true);
   });
 
   socket.on('disconnect', () => {

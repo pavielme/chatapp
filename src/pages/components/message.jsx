@@ -268,9 +268,17 @@ class Message extends React.Component {
 
                 storage.setItem('snapshotRoom_' + this.props.appPage.state.messageTarget.room, JSON.stringify(updatesnapshot));
             } else {
-                socket.emit('send image', id, messageTarget, img, (res) => {
+                var loaderScreen = this.$f7.dialog.preloader('Skickar');
 
+                socket.emit('send image', id, messageTarget, img, (res) => {
+                    if(res){
+                        loaderScreen.close();
+                    }
                 });
+
+                setTimeout(() => {
+                    loaderScreen.close();
+                }, 10000);
             }
             var last = this.props.appPage.state.messagesData.length;
 
@@ -389,9 +397,15 @@ class Message extends React.Component {
         }
     }
 
-    removeSelected(){
-        if(this.state.marked.length > 0){
-            var removeArray = this.state.marked.sort((a,b) => {
+    removeSelected(setI = false){
+        var arr = this.state.marked;
+
+        if(setI){
+            arr = setI
+        }
+        
+        if (arr.length > 0){
+            var removeArray = arr.sort((a,b) => {
                 return a - b;
             });
 
@@ -545,7 +559,7 @@ class Message extends React.Component {
     openImage(img, time){
         this.setState({
             photo: [{
-                url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ6fEFQ2VOkoj6OT9z6--bmfcPqiGbJWcCJOg&usqp=CAU',
+                url: img,
                 caption: new Date(time).toLocaleTimeString('sv-SE', {
                     hour12: false,
                     hour: '2-digit',
@@ -560,10 +574,7 @@ class Message extends React.Component {
         
     }
     selectImage() {
-        this.props.appPage.setState({
-            disableRefresh: true,
-        });
-
+        
         navigator.camera.getPicture((imageData) => {
             var image = "data:image/jpeg;base64," + imageData;
 
@@ -584,9 +595,7 @@ class Message extends React.Component {
         });
     }
     openCamera() {
-        this.props.appPage.setState({
-            disableRefresh: true,
-        });
+
         navigator.camera.getPicture((imageData) => {
             var image = "data:image/jpeg;base64," + imageData;
 
@@ -610,6 +619,10 @@ class Message extends React.Component {
 
     }    
     attach() {
+        this.props.appPage.setState({
+            disableRefresh: true,
+        });
+
         this.$f7.actions.create({
             buttons: [
                 // First group
@@ -631,7 +644,12 @@ class Message extends React.Component {
                 [
                     {
                         text: 'Stäng',
-                        color: 'red'
+                        color: 'red',
+                        onClick: () => {
+                            this.props.appPage.setState({
+                                disableRefresh: false,
+                            });
+                        }
                     }
                 ]
             ]
@@ -688,14 +706,14 @@ class Message extends React.Component {
                             
                             <div className={`messagename`}>{ this.showName(item, index, messageTarget ? messageTarget.user.name : false) }</div>
                             <div 
-                            onClick={() => this.messageHandler('start', index) }
+                                onClick={() => item.image ? this.openImage(item.image, item.ts) : this.messageHandler('start', index) }
                
                                 className={`messagecontainer bubble msg_${index} ${item.animation ? 'animate__animated animate__zoomIn animate__faster' : ''} ${item.image ? 'imagecontainer' : ''} `}>
 
 
 
                                 {item.image ? (
-                                    <img className="messageImage" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ6fEFQ2VOkoj6OT9z6--bmfcPqiGbJWcCJOg&usqp=CAU" />
+                                    <img className="messageImage" src={item.image} />
                                         
                                 ) : ''}
 
@@ -721,6 +739,9 @@ class Message extends React.Component {
                                 <Preloader size="10" color="multi"></Preloader>
                             </div>
                             ) : '' }
+                            {item.image ? ( 
+                                <Link onClick={() => this.removeSelected([index])} className="deleteimage" iconIos={!item.notsended ? 'f7:xmark_circle_fill' : 'f7:arrow_counterclockwise'} iconMd={!item.notsended ? 'f7:xmark_circle_fill' : 'f7:arrow_counterclockwise'} iconSize="18"></Link>
+                            ) : '' }
                             {/* {item.save ? (
                                 <div className={`messagesave`}>Sparad</div>
                             ) : ''}     */}
@@ -743,7 +764,7 @@ class Message extends React.Component {
                                 </div>
 
                                 <div className={`messagecontainer deletebutton`} onClick={() => this.removeSelected()}>
-                                    <Link className="removecustombutton" iconIos={this.$f7.passedParams.socket.connected ? 'f7:trash' : 'f7:arrow_counterclockwise'} iconMd={this.$f7.passedParams.socket.connected ? 'f7:trash' : 'f7:arrow_counterclockwise'}iconSize="18"></Link>
+                                    <Link className="removecustombutton" iconIos={!item.notsended ? 'f7:trash' : 'f7:arrow_counterclockwise'} iconMd={!item.notsended ? 'f7:trash' : 'f7:arrow_counterclockwise'}iconSize="18"></Link>
                                 </div>
                             </div>
                             

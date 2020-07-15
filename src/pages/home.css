@@ -47,13 +47,13 @@
 
 .messageImage {
     width: 86px;
-    height:auto;
+    height:110px;
     background: #ccc;
     border-radius: 20px;
     transition: all 500ms;
     margin:0;
     padding:0;
-    object-fit: contain;
+    object-fit: cover;
 }
 
 .bubble.imagecontainer {
@@ -178,6 +178,13 @@ box-shadow: 0px 0px 12px -4px rgba(0,0,0,0.99);
 
 .door_right.open {
     right: -50%!important;
+}
+
+.deleteimage {
+    color: red;
+    position: absolute;
+    margin-top:-120px;
+    margin-left:76px;
 }
 .inRoom {
     position: fixed!important;
