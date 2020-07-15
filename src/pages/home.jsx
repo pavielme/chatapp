@@ -60,6 +60,20 @@ export default class AppPage extends React.Component {
     });
     
     socket.on('connect', () => {
+      var queued = JSON.parse(window.localStorage.getItem('queued message'));
+
+      if(queued && queued.length){
+        for(var i in queued){
+          socket.emit('send message', this.state.user.id, queued[i].messageTarget, queued[i].text, (res) => {
+
+          });
+        }
+        
+      }
+      
+
+      window.localStorage.removeItem('queued message');
+
       this.initApp();
     });
 

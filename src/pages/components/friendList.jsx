@@ -14,7 +14,10 @@ class Friends extends React.Component {
 
     componentDidMount(){
         var connect = this.$f7.toast.create({
-            text: 'Ansluter...'
+            text: 'Ansluter',
+            closeButton: true,
+            closeButtonText: 'Stäng',
+            closeButtonColor: 'red',
         });
 
         connect.open();

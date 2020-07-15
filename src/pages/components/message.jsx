@@ -143,14 +143,42 @@ class Message extends React.Component {
                     text: text,
                     opened: true,
                     ts: new Date().getTime(),
-                    animation: true
+                    animation: true,
+                    notsended: socket.connected ? false : true
                 }
             ];
 
-            socket.emit('send message', id, messageTarget, text, (res) => {
-                
-            });
+            if(!socket.connected){
+                var queue = {
+                    messageTarget: messageTarget,
+                    text: text,
+                }
 
+                const storage = window.localStorage;
+                var qmessage = storage.getItem('queued message');
+
+                if(qmessage){
+                    var parseQmessage = JSON.parse(qmessage);
+                    parseQmessage.push(queue);
+                } else {
+                    var parseQmessage = [queue];
+                }
+
+                storage.setItem('queued message', JSON.stringify(parseQmessage));
+
+                console.log(storage.getItem('queued message'));
+
+
+                var snapshot = JSON.parse(storage.getItem('snapshotRoom_' + this.props.appPage.state.messageTarget.room));
+
+                var updatesnapshot = [...snapshot, ...messageToSend]
+
+                storage.setItem('snapshotRoom_' + this.props.appPage.state.messageTarget.room, JSON.stringify(updatesnapshot));
+            } else {   
+                socket.emit('send message', id, messageTarget, text, (res) => {
+                    
+                });
+            }  
             var last = this.props.appPage.state.messagesData.length;
 
             this.props.appPage.setState({
@@ -443,13 +471,19 @@ class Message extends React.Component {
                
                                 className={`messagecontainer bubble msg_${index} ${item.animation ? 'animate__animated animate__zoomIn animate__faster' : ''}`}>
                                     {item.text}
+                            {!item.notsended ? (
                             <div className="messagetime">{ new Date(item.ts).toLocaleTimeString('sv-SE', {
                                 hour12: false,
                                 hour: '2-digit',
                                 minute: '2-digit'
                             }) } </div>
-                            </div>
+                            ) : (
+                                        <div className="notsended">Väntande</div>
+                            ) }
 
+                                
+                            </div>
+                     
                             {/* {item.save ? (
                                 <div className={`messagesave`}>Sparad</div>
                             ) : ''}     */}
