@@ -50,6 +50,9 @@ class settings extends React.Component {
                     },
                     {
                         text: 'Välj Bild',
+                        onClick: () => {
+                            this.selectImage();
+                        }
                     }
                 ],
                 // Second group
@@ -67,7 +70,7 @@ class settings extends React.Component {
         navigator.camera.getPicture((imageData) => {
             const { socket } = this.$f7.passedParams;
             socket.open();
-            
+
             var image = "data:image/jpeg;base64," + imageData;
 
             const updateUser = this.state.user;
