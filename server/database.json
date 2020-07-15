@@ -5,7 +5,7 @@
         "password": "paviel123",
         "room": false,
         "avatar": "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/49ec1464-d899-400a-b608-c48c76b500d2/ddlby97-f31bd202-49ef-4391-995a-e08a03e9a0f8.jpg/v1/fill/w_900,h_900,q_75,strp/baby_yoda_by_patrickbrown_ddlby97-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3siaGVpZ2h0IjoiPD05MDAiLCJwYXRoIjoiXC9mXC80OWVjMTQ2NC1kODk5LTQwMGEtYjYwOC1jNDhjNzZiNTAwZDJcL2RkbGJ5OTctZjMxYmQyMDItNDllZi00MzkxLTk5NWEtZTA4YTAzZTlhMGY4LmpwZyIsIndpZHRoIjoiPD05MDAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.7bOQXtROBbXvM_k9pGmUYmE-wb97rfR92tgN1xj1wNk",
-        "token": "dJLShyG3VNU:APA91bGhuy-FJlr6N9xXxsHPqEMob9Lx_H_WsCn5mbBubJrf6iJ2gB6zit1DJJBOVqzRwpYe8o8EFdiQBAV71lApQEnK3JzlYTppsOPEv7GJ6I3SbjFfsf6uLbo74VZNXQb48Hi4jgu9",
+        "token": "cZlB_-aRiCo:APA91bH7F0JdsnK8D5MrWe1M_EYvIxd2Q3lLdrjwY2KgLqTjSDuu8oWOxmP68Rxg0REnveivc7s_0ca-sSWdAATZUlkoxxINNLA1pnh7yTylPnW7gstHW-sHsZ8YPG_3JOF7vQO-znp5",
         "friends": {
             "room_1": {
                 "id": "profile_2",
@@ -64,7 +64,7 @@
         "username": "babe",
         "password": "babe123",
         "avatar": "https://i.pinimg.com/originals/85/73/67/857367b94d212135510084f9802e621c.jpg",
-        "room": false,
+        "room": true,
         "friends": {
             "room_1": {
                 "id": "profile_1",

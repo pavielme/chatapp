@@ -34,11 +34,46 @@ class settings extends React.Component {
     }
 
     changeAvatar(){
-        this.$f7.dialog.prompt('Ange URL', 'Ändra avatar', (url) => {
-            console.log(url);
+        this.$f7.actions.create({
+            buttons: [
+                // First group
+                [
+                    {
+                        text: 'Ändra profilbild',
+                        label: true
+                    },
+                    {
+                        text: 'Ta bild',
+                        onClick: () => {
+                            this.openCamera();
+                        }
+                    },
+                    {
+                        text: 'Välj Bild',
+                    }
+                ],
+                // Second group
+                [
+                    {
+                        text: 'Stäng',
+                        color: 'red'
+                    }
+                ]
+            ]
+        }).open();
+    }
+
+    openCamera() {
+        
+        navigator.camera.getPicture((imageData) => {
+            const { socket } = this.$f7.passedParams;
+            socket.open();
+            
+            var image = "data:image/jpeg;base64," + imageData;
+
             const updateUser = this.state.user;
 
-            updateUser.avatar = url;
+            updateUser.avatar = image;
 
             window.localStorage.setItem('loginData', JSON.stringify(updateUser));
 
@@ -46,11 +81,17 @@ class settings extends React.Component {
                 user: updateUser
             });
 
-            const { socket } = this.$f7.passedParams;
+            socket.emit('change avatar', this.state.user.id, image);
 
-            socket.emit('change avatar', this.state.user.id, url);
+        }, (message) => {
+            alert('Ett fel inträffat');
+        }, {
+            quality: 50,
+            destinationType: Camera.DestinationType.DATA_URL
         });
-    }
+
+   
+    }    
     render(){
         return(
             <Page name="settings" pageContent={false}>

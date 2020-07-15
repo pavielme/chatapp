@@ -51,12 +51,14 @@ export default class AppPage extends React.Component {
     socket.open();
 
     document.addEventListener("visibilitychange", () => {
+      if (this.$f7router.url !== '/Settings') {
         if (document.visibilityState === 'visible') {
           window.location.reload();
         } else {
           document.body.hidden = true;
           socket.close();
         }
+      }
     });
 
     socket.on('connect', () => {
