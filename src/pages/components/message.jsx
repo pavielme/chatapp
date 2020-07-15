@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Tab, Navbar, NavTitle, Messagebar, Link, NavRight, Popover, List, ListItem, ListButton, Icon, Badge, Preloader, Block
+  Tab, Navbar, NavTitle, Messagebar, Link, NavRight, Popover, List, ListItem, ListButton, Icon, Badge, Preloader, Block, PhotoBrowser
 } from 'framework7-react';
 
 class Message extends React.Component {
@@ -15,6 +15,7 @@ class Message extends React.Component {
             messageHeight: document.body.clientHeight,
             keyboardHeight: false,
             lostConnection: false,
+            photo: []
         }
 
         const { socket } = this.$f7.passedParams;
@@ -226,6 +227,77 @@ class Message extends React.Component {
         }
         
     }
+
+    sendImage(img) {
+        const { id } = this.props.appPage.state.user;
+        const { messageTarget } = this.props.appPage.state;
+        const { socket } = this.$f7.passedParams;
+
+            var messageToSend = [
+                {
+                    type: 'send',
+                    image: img,
+                    opened: true,
+                    ts: new Date().getTime(),
+                    animation: true,
+                    notsended: socket.connected ? false : true
+                }
+            ];
+
+            if (!socket.connected) {
+                var queue = {
+                    messageTarget: messageTarget,
+                    image: img,
+                }
+
+                const storage = window.localStorage;
+                var qmessage = storage.getItem('queued message');
+
+                if (qmessage) {
+                    var parseQmessage = JSON.parse(qmessage);
+                    parseQmessage.push(queue);
+                } else {
+                    var parseQmessage = [queue];
+                }
+
+                storage.setItem('queued message', JSON.stringify(parseQmessage));
+
+                var snapshot = JSON.parse(storage.getItem('snapshotRoom_' + this.props.appPage.state.messageTarget.room));
+
+                var updatesnapshot = [...snapshot, ...messageToSend]
+
+                storage.setItem('snapshotRoom_' + this.props.appPage.state.messageTarget.room, JSON.stringify(updatesnapshot));
+            } else {
+                socket.emit('send image', id, messageTarget, img, (res) => {
+
+                });
+            }
+            var last = this.props.appPage.state.messagesData.length;
+
+            this.props.appPage.setState({
+                messagesData: [...this.props.appPage.state.messagesData, ...messageToSend],
+            });
+
+            setTimeout(() => {
+
+                var removeani = this.props.appPage.state.messagesData;
+
+                removeani[last].animation = false;
+
+                this.props.appPage.setState({
+                    messagesData: removeani,
+                });
+            }, 500);
+
+            setTimeout(() => {
+                this.scrollToBottom();
+            }, 300);
+
+            
+   
+
+    }
+
     isTypingHandler(){
         var messagebar = this.$f7.messagebar.get('.messageBar');
         var text = messagebar.getValue().replace(/\n/g, '/n').trim();
@@ -334,6 +406,9 @@ class Message extends React.Component {
                     for(var i in queue){
                         if (queue[i].messageTarget.room === this.props.appPage.state.messageTarget.room){
                             if(queue[i].text === message.text){
+                                queue.splice(i, 1);
+                                break;
+                            } else if (queue[i].image === message.image) {
                                 queue.splice(i, 1);
                                 break;
                             }
@@ -467,6 +542,101 @@ class Message extends React.Component {
         // });
     }
     
+    openImage(img, time){
+        this.setState({
+            photo: [{
+                url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ6fEFQ2VOkoj6OT9z6--bmfcPqiGbJWcCJOg&usqp=CAU',
+                caption: new Date(time).toLocaleTimeString('sv-SE', {
+                    hour12: false,
+                    hour: '2-digit',
+                    minute: '2-digit'
+                })
+            }]
+        })
+
+        setTimeout(() => {
+            this.standaloneDark.open();
+        }, 200);
+        
+    }
+    selectImage() {
+        this.props.appPage.setState({
+            disableRefresh: true,
+        });
+
+        navigator.camera.getPicture((imageData) => {
+            var image = "data:image/jpeg;base64," + imageData;
+
+            this.sendImage(image);
+
+            this.props.appPage.setState({
+                disableRefresh: false,
+            });
+        }, (message) => {
+                this.props.appPage.setState({
+                    disableRefresh: false,
+                });
+        }, {
+            quality: 80,
+            sourceType: Camera.PictureSourceType.PHOTOLIBRARY, destinationType: Camera.DestinationType.DATA_URL,
+            allowEdit: true,
+            correctOrientation: true,
+        });
+    }
+    openCamera() {
+        this.props.appPage.setState({
+            disableRefresh: true,
+        });
+        navigator.camera.getPicture((imageData) => {
+            var image = "data:image/jpeg;base64," + imageData;
+
+            this.sendImage(image);
+
+
+            this.props.appPage.setState({
+                disableRefresh: false,
+            });
+        }, (message) => {
+                this.props.appPage.setState({
+                    disableRefresh: false,
+                });
+        }, {
+            quality: 80,
+            destinationType: Camera.DestinationType.DATA_URL,
+            allowEdit: true,
+            correctOrientation: true,
+        });
+
+
+    }    
+    attach() {
+        this.$f7.actions.create({
+            buttons: [
+                // First group
+                [
+                    {
+                        text: 'Ta bild',
+                        onClick: () => {
+                            this.openCamera();
+                        }
+                    },
+                    {
+                        text: 'Välj Bild',
+                        onClick: () => {
+                            this.selectImage();
+                        }
+                    }
+                ],
+                // Second group
+                [
+                    {
+                        text: 'Stäng',
+                        color: 'red'
+                    }
+                ]
+            ]
+        }).open();
+    }
     render() {
       const { messageTarget, messagesData } = this.props.appPage.state;
 
@@ -490,6 +660,14 @@ class Message extends React.Component {
                     <Link onClick={() => this.closeChat()} iconIos="f7:chevron_right" iconMd="f7:chevron_right"></Link>
                 </NavRight>
             </Navbar>
+              <PhotoBrowser
+                  photos={this.state.photo}
+                  theme="dark"
+                  toolbar={false}
+                  swipeToClose={false}
+                  popupCloseLinkText="Stäng"
+                  ref={(el) => { this.standaloneDark = el }}
+              />
             <Popover className="popover-menu">
             <List>
                 <ListButton onClick={() => this.copyMessage() } color={this.state.marked.length === 1 ? '' : 'gray'} popoverClose={this.state.marked.length === 1 ? true : false } title="Kopiera" />
@@ -512,8 +690,20 @@ class Message extends React.Component {
                             <div 
                             onClick={() => this.messageHandler('start', index) }
                
-                                className={`messagecontainer bubble msg_${index} ${item.animation ? 'animate__animated animate__zoomIn animate__faster' : ''}`}>
-                                    {item.text}
+                                className={`messagecontainer bubble msg_${index} ${item.animation ? 'animate__animated animate__zoomIn animate__faster' : ''} ${item.image ? 'imagecontainer' : ''} `}>
+
+
+
+                                {item.image ? (
+                                    <img className="messageImage" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ6fEFQ2VOkoj6OT9z6--bmfcPqiGbJWcCJOg&usqp=CAU" />
+                                        
+                                ) : ''}
+
+                                {item.text ? item.text : ''}
+
+
+
+
                             {!item.notsended ? (
                             <div className="messagetime">{ new Date(item.ts).toLocaleTimeString('sv-SE', {
                                 hour12: false,
@@ -521,7 +711,7 @@ class Message extends React.Component {
                                 minute: '2-digit'
                             }) } </div>
                             ) : (
-                                        <div className="notsended">Väntande</div>
+                                        <div className="notsended">Köad</div>
                             ) }
 
                                 
@@ -536,14 +726,20 @@ class Message extends React.Component {
                             ) : ''}     */}
 
                             <div className={`messageHandlerBox ${ this.isMarked(index) && this.state.marked.length === 1 ? 'show' : '' }`}>
-                                <div className={`messagecontainer copybutton`} onClick={() => this.copyMessage(index)}>
+                                <div className={`messagecontainer copybutton`} onClick={() => !item.image ? this.copyMessage(index) : this.openImage(item.image, item.ts) }>
+                                    {!item.image ? (
                                     <Link className="copycustombutton" iconIos="f7:doc_on_doc" iconMd="f7:doc_on_doc" iconSize="18"></Link>
-                                    
+                                    ) : (
+                                            <Link className="copycustombutton" iconIos="f7:expand" iconMd="f7:expand" iconSize="18"></Link>  
+                                    )}
                                  </div>
 
                                 <div className={`messagecontainer savebutton`} onClick={() => this.togglesave(index)}>
+                                    { item.image ? (
+                                        <Link className="copycustombutton" iconIos="f7:floppy_disk" iconMd="f7:floppy_disk" iconSize="18"></Link>
+                                    ) : ( 
                                     <Link className="copycustombutton" iconIos={item.save ? 'f7:star_fill' : 'f7:star'} iconMd={item.save ? 'f7:star_fill' : 'f7:star'}  iconSize="18"></Link>
-
+                                    )}
                                 </div>
 
                                 <div className={`messagecontainer deletebutton`} onClick={() => this.removeSelected()}>
@@ -577,6 +773,7 @@ class Message extends React.Component {
                     iconAurora="f7:camera_fill"
                     iconMd="material:camera_alt"
                     slot="inner-start"
+                      onClick={() => this.attach()}
                 ></Link>
                 <Link
                     iconIos="f7:arrow_up_circle_fill"
@@ -590,7 +787,7 @@ class Message extends React.Component {
               {this.$f7.passedParams.socket.connected ? '' : (
                   <Block className="text-align-center nonetwork">
                       <Icon f7="wifi_exclamationmark"></Icon><br></br>
-                      Meddelande kommer att skickas vid uppkoppling
+                      Nätverk saknas
                   </Block>
               )}
         </Tab>

@@ -29,6 +29,7 @@ export default class AppPage extends React.Component {
       friends: snapshot ? JSON.parse(snapshot) : [],
       messageTarget: false,
       messagesData: [],
+      disableRefresh: false,
     }
   }
 
@@ -52,11 +53,13 @@ export default class AppPage extends React.Component {
 
     document.addEventListener("visibilitychange", () => {
       if (this.$f7router.url !== '/Settings') {
-        if (document.visibilityState === 'visible') {
-          window.location.reload();
-        } else {
-          document.body.hidden = true;
-          socket.close();
+        if (!this.state.disableRefresh){
+          if (document.visibilityState === 'visible') {
+            window.location.reload();
+          } else {
+            document.body.hidden = true;
+            socket.close();
+          }
         }
       }
     });
@@ -66,9 +69,16 @@ export default class AppPage extends React.Component {
 
       if(queued && queued.length){       
         for (var i in queued) {
-          socket.emit('send message', this.state.user.id, queued[i].messageTarget, queued[i].text, (res) => {
+          if(queued[i].text){
+            socket.emit('send message', this.state.user.id, queued[i].messageTarget, queued[i].text, (res) => {
 
-          });
+            });
+          } else if(queued[i].image){
+            socket.emit('send image', this.state.user.id, queued[i].messageTarget, queued[i].image, (res) => {
+
+            });
+          }
+          
 
         }
 
@@ -147,6 +157,40 @@ export default class AppPage extends React.Component {
       }, 500);
 
       this.scrollToBottom();
+    });
+
+    socket.on('receive image', (image) => {
+      var messageToReceive = [{
+        type: 'received',
+        image: image,
+        opened: true,
+        ts: new Date().getTime(),
+        animation: true,
+      }];
+
+      var last = this.state.messagesData.length;
+
+      this.setState({
+        messagesData: [...this.state.messagesData, ...messageToReceive]
+      });
+
+
+
+      setTimeout(() => {
+        var removeani = this.state.messagesData;
+
+        removeani[last].animation = false;
+
+        this.setState({
+          messagesData: removeani,
+        });
+
+        window.localStorage.setItem('snapshotRoom_' + this.state.messageTarget.room, JSON.stringify(this.state.messagesData));
+      }, 500);
+
+      setTimeout(() => {
+        this.scrollToBottom();
+      }, 300);
     });
   }
 

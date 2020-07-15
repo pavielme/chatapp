@@ -346,6 +346,55 @@ io.on('connection', (socket) => {
 
   });
 
+  socket.on('send image', (id, target, image, callback) => {
+
+    var status = checkIsRoom(target.user.id, target.room);
+
+    if (status === 'chat') {
+      socket.to(target.room).emit('typing', false);
+      socket.to(target.room).emit('receive image', image);
+      setRead(target.user.id, target.room);
+    } else if (status === 'inapp') {
+      var name = databaseData(id).name;
+      io.emit('notification id_' + target.user.id, name);
+    } else if (status === 'push') {
+
+      var name = databaseData(id).name;
+      var token = databaseData(target.user.id).token;
+
+      if (token) {
+        console.log('push')
+        pushNotification(name, token);
+      }
+    }
+
+    var read = fs.readFileSync('./database.json');
+    var data = JSON.parse(read);
+
+    var currenttimestamp = new Date().getTime();
+
+    data[id].friends[target.room].messages.push({
+      type: 'send',
+      image: image,
+      opened: true,
+      ts: currenttimestamp
+    });
+
+    data[id].friends[target.room].last_change = currenttimestamp;
+
+    data[target.user.id].friends[target.room].messages.push({
+      type: 'received',
+      image: image,
+      opened: false,
+      ts: currenttimestamp
+    });
+
+    data[target.user.id].friends[target.room].last_change = currenttimestamp;
+
+    fs.writeFileSync('./database.json', JSON.stringify(data, null, 4));
+
+  });
+
   socket.on('disconnect', () => {
     if(socket.username){
 
