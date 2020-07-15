@@ -31,7 +31,7 @@ export default class extends React.Component {
 
         // Input settings
         input: {
-          scrollIntoViewOnFocus: Device.cordova && !Device.electron,
+          sncrollIntoViewOnFocus: Device.cordova && !Device.electron,
           scrollIntoViewCentered: Device.cordova && !Device.electron,
         },
         // Cordova Statusbar settings
@@ -47,9 +47,9 @@ export default class extends React.Component {
   }
   render() {
     return (
-      <App params={ this.state.f7params } themeDark>
+      <App params={ this.state.f7params }E>
 
-        {/* Your main view, should have "view-main" class */}
+        {/* Your main viDw, should have "view-main" class */}
         <View main className="safe-areas" url="/" />
 
       </App>

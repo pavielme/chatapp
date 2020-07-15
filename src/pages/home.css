@@ -7,8 +7,11 @@
     background: none;
 }
 
+.navbar .title{
+    color: #fff;
+}
 .navbar-bg {
-    background-color: none;
+    background-color: #202020;
 }
 
 .friendsList .friend {
@@ -51,6 +54,8 @@
     padding-bottom: var(--f7-messagebar-height);
     width: 100%;
     display: block;
+    opacity: 0;
+    transition: opacity 200ms;
 }
 
 .list-messages {
@@ -60,6 +65,88 @@
     padding: 10px;
 }
 
+.messageHandlerContainer {
+    position: fixed!important;
+    top: -54px;
+    left: calc(50% - 100px);
+    width:200px;
+    height:54px;
+    display: block;
+    z-index: 1;
+    border-radius: 24px;
+    transition: top 400ms;
+}
+
+.messagesave {
+    font-size:11px;
+    margin-top: -3px;
+    margin-bottom: 3px;;
+}
+
+.messageTypeSend .messagesave {
+    text-align: right;
+}
+.messageHandlerContainer.show {
+    top: calc(var(--f7-navbar-height) + 10px);
+}
+.messageHandlerContainer .removebutton, .messageHandlerContainer .copybutton, .messageHandlerContainer .savebutton {
+    width:90px;
+    height:34px;
+    display: inline-block;
+    background: #1c84bd;
+    backdrop-filter: blur(15px);
+    margin: 0px 5px;
+    border-radius: 24px;
+    opacity: 0.7;
+    text-align: center;
+    line-height: 34px;
+    color: #fff;
+    -webkit-box-shadow: 0px 0px 12px -4px rgba(0,0,0,0.99);
+-moz-box-shadow: 0px 0px 12px -4px rgba(0,0,0,0.99);
+box-shadow: 0px 0px 12px -4px rgba(0,0,0,0.99);
+}
+
+.doors {
+    width:100%;
+    height:100%;
+    display: block;
+    position: fixed;
+    left:0;
+    top:0;
+    z-index: 9999;
+}
+
+.doors.remove {
+    display: none;
+}
+
+.door_left {
+    width:50%;
+    height:100%;
+    display: block;
+    background: #202020;
+    position: fixed;
+    transition: left 500ms;
+    left:0%;
+    z-index: 9999;
+}
+.door_right {
+    width:50%;
+    height:100%;
+    display: block;
+    background: #202020;
+    position: fixed;
+    transition: right 500ms;
+    right:0%;
+    z-index: 9999;
+}
+.door_left.open {
+    left: -50%!important;
+}
+
+.door_right.open {
+    right: -50%!important;
+}
 .inRoom {
     position: fixed!important;
     bottom: -44px;
@@ -74,6 +161,77 @@
     transition: bottom 400ms;
 }
 
+.messageHandlerBox {
+    height:0px;
+    width:201px;
+    display: block;
+    transition: margin 400ms, height 400ms;
+    position: relative;
+   
+    
+}
+
+.messageHandlerBox.show {
+    
+    height:36px;
+}
+
+.messageTypeSend .messageHandlerBox {
+    margin-left:auto;
+}
+.messagecontainer.copybutton, .messagecontainer.deletebutton, .messagecontainer.savebutton {
+    display: block;
+    font-size: 13px;
+    width: 50px;
+    text-align: center;
+    background: rgba(20,20,20,0.7) !important;
+    backdrop-filter: blur(25px);
+    position: absolute;
+    z-index: 0;
+    margin-top: 0px;
+    transition: transform 200ms, margin 400ms;
+    transform: scaleY(0);
+    padding:5px 7px;
+}
+
+.messageHandlerBox.show .messagecontainer.copybutton {
+    background: rgba(20,20,20,0.7) !important;
+    margin-top: 0px;
+    transform: scaleY(1);
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.messagecontainer.savebutton {
+    margin-left:67px !important;
+    background: rgba(20,20,20,0.7)!important;
+}
+
+.messageHandlerBox.show .messagecontainer.savebutton {
+    background: rgba(20,20,20,0.7)!important;
+    margin-top: 0;
+    margin-left:67px;
+    transform: scaleY(1);
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.messagecontainer.deletebutton {
+    margin-left:134px !important;
+    background: rgba(150, 17, 28, 0.7)!important;
+}
+.messageHandlerBox.show .messagecontainer.deletebutton {
+    background: rgba(150, 17, 28, 0.7)!important;
+    margin-top: 0;
+    margin-left:134px;
+    transform: scaleY(1);
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+
 .inRoom.isTrue {
     bottom: calc(var(--f7-messagebar-height) - 24px);
 }
@@ -82,17 +240,44 @@
     bottom: calc(var(--f7-messagebar-height) + 10px)!important;
 }
 
-.marked {
-    margin-left: 20px;
-    margin-right: 20px;
-    background: #1c84bd!important;
+.removeanimation {
+    transform: scaleY(0);
+}
+.messagecontainer.marked {
+    /* margin-left: 20px;
+    margin-right: 20px; */
+    background: #35474d!important;
 }
 
-.marked:before {
+.copycustombutton, .removecustombutton {
 
+    color: #fff;
 }
+
+.messagenew {
+    font-size: 10px;
+    margin-top: -3px;
+    margin-bottom:3px;
+    margin-left: 10px;
+    transition: margin 400ms;
+}
+
+.messagenew.marked  {
+    margin-left: 0;
+}
+
+.messageTypeSend .messagecontainer.marked {
+    /* border-top-right-radius: 0;
+    border-bottom-right-radius: 0; */
+}
+
+.messageTypeReceived .messagecontainer.marked {
+    /* border-top-left-radius: 0;
+    border-bottom-left-radius: 0; */
+}
+
 .messageTypeReceived .marked:before {
-    content: '-';
+    /* content: '-';
     font-weight: bold;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     color: #1c84bd;
@@ -103,18 +288,17 @@
     width:10px;
     height: 10px;
     background: none;
-  /* And so on and so forth, if you want border-ception */
     box-sizing: border-box;
     position: absolute;
     left:-20px;
     top:calc(50% - 10px);
     border-radius: 50%;
-    --animate-repeat: infinite;
+    --animate-repeat: infinite; */
     
 }
 
 .messageTypeSend .marked:after {
-    content: '-';
+    /* content: '-';
     font-weight: bold;
     display: block;
     width:10px;
@@ -124,45 +308,71 @@
     position: absolute;
     right:-20px;
     top:calc(50% - 10px);
-    border-radius: 50%;
+    border-radius: 50%; */
+}
+
+.messagebox {
+    background: #fff;
+    display: block;
+    width: 100%;
+    height: auto;
+    z-index: 9999;
+    position: relative;
 }
 .messagecontainer {
-    transition: background 400ms, margin 400ms;
+    transition: background 400ms, border-radius 400ms, transform 400ms, border-top 400ms, border-bottom 400ms ;
     width:calc(100% - 45px);
     display:block;
-    background: #333333;
+    background: #6994b3;
     backdrop-filter: blur(6px);
     backdrop-filter: contrast(.8);
     padding:7px 17px;
-    font-size: 18px;
+    font-size: 15px;
     color:#fff;
     border-radius: 20px;
     max-width: 250px;
+    
     width: fit-content;
     user-select: none;
     margin-bottom: 3px;
+    border-top: 0px;
+    border-bottom: 0px;
+    
 }
 
-.dialog-backdrop {
+.bubble {
+    padding:1px 15px!important;
+    padding-top: 8px!important;
+    text-shadow: -1px 1px 5px rgba(0, 0, 0, 1);
+}
+
+.dialog-backdrop, .popover-backdrop {
     opacity: 0!important;
 }
 
-.messageTypeSend .messagecontainer {
-    background: rgba(6,156,24, .8);
-    background: radial-gradient(circle, rgba(6,156,24,1) 0%, rgba(56,153,25,1) 68%, rgba(56,153,25,1) 100%);
-    margin-left:auto;
-    color: #FFF;
-    border-bottom-right-radius: 0;
+.copy {
+    transform: scale(1.1);
 }
 
-.messageTypeReceived .messagecontainer {
-    border-bottom-left-radius: 0;
+.messageTypeSend .messagecontainer {
+    /* background: #1c84bd; */
+   
+    margin-left:auto;
+    color: #FFF;
+    
+}
+
+.showContent {
+    opacity: 1;
 }
 
 .messagename {
     font-weight: bold;
-    color:#fff;
+    color:#202020;
     user-select: none;
+    font-size: 11px;
+    margin-left:10px;
+    
 }
 
 .messageTypeSend .messagename {
@@ -174,6 +384,8 @@
     font-weight: 700;
     opacity: .8;
     font-size:12px;
+    margin-bottom: 5px;
+    text-transform: capitalize;
 }
 
 .messagedate.hide {
@@ -181,7 +393,7 @@
     visibility: hidden;
 }
 .messagetime {
-    font-size: 12px;
+    font-size: 10px;
     text-align: right;
     margin-bottom: 5px;
 }
@@ -197,7 +409,7 @@
     position: absolute;
     top:calc(var(--f7-navbar-height) - 4px);
     width: 100%;
-    display: block;
+    display: none;
     height:0px;
     z-index:9999;
 }

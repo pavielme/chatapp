@@ -164,6 +164,7 @@ io.on('connection', (socket) => {
           id: id,
           name: data[id].name,
           username: data[id].username,
+          avatar: data[id].avatar,
         }
 
         break;
@@ -171,6 +172,15 @@ io.on('connection', (socket) => {
     }
 
     callback(res);
+  });
+
+  socket.on('change avatar', (id, url) => {
+    var read = fs.readFileSync('./database.json');
+    var data = JSON.parse(read);
+
+    data[id].avatar = url;
+
+    fs.writeFileSync('./database.json', JSON.stringify(data, null, 4));
   });
 
   socket.on('load friends', (id, callback) => {    
@@ -189,6 +199,7 @@ io.on('connection', (socket) => {
                 id: friends[room].id,
                 name: friend.name,
                 username: friend.username,
+                avatar: friend.avatar,
             },
             message: {
                 new: checkMessage(messages),
@@ -217,7 +228,48 @@ io.on('connection', (socket) => {
     }
 
     var messages = database.friends[room].messages;
+
+    // var filterOpened = [];
+
+    // for(var i in messages){
+    //   if(!messages[i].opened) {
+    //     filterOpened.push(messages[i]);
+    //   } else if (messages[i].save) {
+    //     filterOpened.push(messages[i]);
+    //   }
+    // }
+
     callback(messages);
+  });
+
+  socket.on('snapshot messages', (id, room, callback) => {
+    var database = databaseData(id);
+    var messages = database.friends[room].messages;
+
+    // var filterOpened = [];
+
+    // for (var i in messages) {
+    //   if (!messages[i].opened) {
+    //     filterOpened.push(messages[i]);
+    //   } else if (messages[i].save){
+    //     filterOpened.push(messages[i]);
+    //   }
+    // }
+
+    callback(messages);
+  });
+
+  socket.on('togglesave messages', (id, room, index, callback) => {
+    var read = fs.readFileSync('./database.json');
+    var data = JSON.parse(read);
+
+    var state = data[id].friends[room].messages[index].save ? false : true;
+
+    data[id].friends[room].messages[index].save = state;
+
+    fs.writeFileSync('./database.json', JSON.stringify(data, null, 4));
+
+    callback(state);
   });
 
   socket.on('leave room', (id, room, callback) => {

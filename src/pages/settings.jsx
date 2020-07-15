@@ -33,20 +33,42 @@ class settings extends React.Component {
         window.location.reload();
     }
 
+    changeAvatar(){
+        this.$f7.dialog.prompt('Ange URL', 'Ändra avatar', (url) => {
+            console.log(url);
+            const updateUser = this.state.user;
+
+            updateUser.avatar = url;
+
+            window.localStorage.setItem('loginData', JSON.stringify(updateUser));
+
+            this.setState({
+                user: updateUser
+            });
+
+            const { socket } = this.$f7.passedParams;
+
+            socket.emit('change avatar', this.state.user.id, url);
+        });
+    }
     render(){
         return(
-            <Page name="settings">
-                <Navbar backLink="Tillbaka">
+            <Page name="settings" pageContent={false}>
+                <div className={`connection ${this.$f7.passedParams.socket.connected ? 'con-online' : 'con-offline'}`}></div>
+        
+                <Navbar backLink="Tillbaka" noShadow={true}
+                    noHairline={true}>
                     <NavTitle>{ this.state.user.name }</NavTitle>
                     <NavRight>
                         <Link onClick={() => this.logout()} iconIos="f7:square_arrow_right" iconAurora="f7:square_arrow_right" iconMd="f7:square_arrow_right"></Link>
                     </NavRight>
                 </Navbar>
-                <Block className="text-align-center">
-                    <img className="profileAvatar" src="https://image.winudf.com/v2/image1/Y29tLmJhYnkueW9kYS5zdGlja2Vycy53YXN0aWNrZXJhcHBzX2ljb25fMTU4MTk5OTgxNV8wMDc/icon.png?w=170&fakeurl=1" width="124" />
+                <div className="page-content text-align-center">
+                   <Block>
+                        <img onClick={() => this.changeAvatar() } className="profileAvatar" src={ this.state.user.avatar } width="124" />
                     <div className="profileName">{ this.state.user.name }</div>
                     <div className="profileUsername">@{ this.state.user.username }</div>
-                </Block>
+                    </Block>
                 <List simpleList inset>
                 <ListItem>
                     <span>Avisering</span>
@@ -58,6 +80,7 @@ class settings extends React.Component {
                     <ListButton title="Ändra profil"></ListButton>
                     <ListButton title="Ändra lösenord"></ListButton>
                 </List>
+                </div>
             </Page>
 
         )

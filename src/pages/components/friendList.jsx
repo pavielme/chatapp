@@ -13,12 +13,16 @@ class Friends extends React.Component {
     }
 
     componentDidMount(){
-        const loader = this.$f7.dialog.preloader('Uppdaterar');
+        var connect = this.$f7.toast.create({
+            text: 'Ansluter...'
+        });
 
-        this.loadFriends(loader);
+        connect.open();
+
+        this.loadFriends(connect);
     }
 
-    loadFriends(loader){
+    loadFriends(connect){
         const { socket } = this.$f7.passedParams;
     
         socket.emit('load friends', this.props.appPage.state.user.id, (res) => {
@@ -31,7 +35,7 @@ class Friends extends React.Component {
                 friends: res
             });
 
-            loader.close();
+            connect.close();
         });
     }
 
@@ -75,11 +79,15 @@ class Friends extends React.Component {
                             socket.emit('leave room', this.props.appPage.state.user.id, this.props.appPage.state.messageTarget.room, (res) => {
                                 console.log(res);
                             });
-            
+                            
+                            window.localStorage.setItem('snapshotRoom_' + this.props.appPage.state.messageTarget.room, JSON.stringify(this.props.appPage.state.messagesData));
+
                             this.props.appPage.setState({
                                 messageTarget: false,
                                 messagesData: []
                             });
+
+                            this.$$('.Custom-MessageContent').removeClass('showContent');
                         }
                     }, 300);
                 }
@@ -91,13 +99,26 @@ class Friends extends React.Component {
 
         const self = this.props.appPage;
         const { socket } = this.$f7.passedParams;
+        const storage = window.localStorage;
 
         if(state){
+            var snapshotRoom = storage.getItem('snapshotRoom_' + friend.room);
+
+            this.$$('.Custom-MessageContent').removeClass('showContent');
+
             this.props.appPage.setState({
-                messageTarget: friend
+                messageTarget: friend,
+                messagesData: snapshotRoom ? JSON.parse(snapshotRoom) : [],
             });
+            setTimeout(() => {
+                this.scrollToBottom(); 
+                this.$$('.Custom-MessageContent').addClass('showContent');
+            }, 15);
+            
 
             socket.emit('load messages', self.state.user.id, friend.room, (res) => {
+                storage.setItem('snapshotRoom_' + friend.room, JSON.stringify(res));
+
                 this.props.appPage.setState({
                     messageTarget: friend,
                     messagesData: res,
@@ -128,7 +149,7 @@ class Friends extends React.Component {
           <NavLeft>
               <Link href="/Settings" transition="f7-push" iconIos="f7:gear_alt" iconAurora="f7:gear_alt" iconMd="f7:gear_alt"></Link>
           </NavLeft>
-          <NavTitle>Chat</NavTitle>
+          <NavTitle>Direkt chat</NavTitle>
           <NavRight>
               <Link iconIos="f7:person_badge_plus" iconAurora="f7:person_badge_plus" iconMd="f7:person_badge_plus"></Link>
           </NavRight>
@@ -151,7 +172,7 @@ class Friends extends React.Component {
                 after={this.timestampString(item.message.last)}        
                 
             >
-                <img slot="media" className="listAvatar" src="https://image.winudf.com/v2/image1/Y29tLmJhYnkueW9kYS5zdGlja2Vycy53YXN0aWNrZXJhcHBzX2ljb25fMTU4MTk5OTgxNV8wMDc/icon.png?w=170&fakeurl=1" width="44" />
+                <img slot="media" className="listAvatar" src={item.user.avatar} width="44" />
             </ListItem>
             </span>
         )) }

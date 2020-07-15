@@ -63,7 +63,14 @@ export default class AppPage extends React.Component {
       this.initApp();
     });
 
-    
+    setTimeout(() => {
+      var doorR = this.$$('.door_right');
+      var doorL = this.$$('.door_left');
+
+      doorR.addClass('open');
+      doorL.addClass('open');
+
+    }, 1500);
 
     socket.on('notification id_' + this.state.user.id, (name) => {
       this.loadFriends();
@@ -79,10 +86,25 @@ export default class AppPage extends React.Component {
         ts: new Date().getTime(),
         animation: true,          
       }];
-      
+      var last = this.state.messagesData.length;
+
       this.setState({
         messagesData: [...this.state.messagesData, ...messageToReceive]
       });
+
+      
+
+      setTimeout(() => {
+        var removeani = this.state.messagesData;
+
+        removeani[last].animation = false;
+
+        this.setState({
+          messagesData: removeani,
+        });
+
+        window.localStorage.setItem('snapshotRoom_' + this.state.messageTarget.room, JSON.stringify(this.state.messagesData));
+      }, 500);
 
       this.scrollToBottom();
     });
@@ -142,7 +164,10 @@ export default class AppPage extends React.Component {
     return (
       <Page name="home" pageContent={false}>
         {/* Top Navbar */}
-        
+  
+            <div className="door_left"></div>
+            <div className="door_right"></div>
+     
         <Tabs className="pageTabs" swipeable swiperParams={{
           allowSlidePrev: false,
           allowSlideNext: false,
@@ -160,12 +185,20 @@ export default class AppPage extends React.Component {
                 this.$f7.swiper.get('.pageTabs').allowSlidePrev = false;
                 this.$f7.swiper.get('.pageTabs').allowSlideNext = false;
 
+                 this.$$('.Custom-MessageContent').removeClass('showContent');
+
                 const { socket } = this.$f7.passedParams;
 
                 socket.emit('leave room', this.state.user.id, this.state.messageTarget.room, (res) => {
                   console.log(res);
 
                   this.loadFriends();
+                });
+
+                
+
+                socket.emit('snapshot messages', this.state.user.id, this.state.messageTarget.room, (snapshot) => {
+                  window.localStorage.setItem('snapshotRoom_' + this.state.messageTarget.room, JSON.stringify(snapshot));
                 });
 
                 setTimeout(() => {

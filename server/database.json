@@ -4,97 +4,56 @@
         "username": "paviel",
         "password": "paviel123",
         "room": false,
-        "token": "fYT_8YQYIT8:APA91bH-UUV9GwswK4qMwHSPuKJo54dXLECOOB0m6Fpp06jC8uKiWNsyk4pjkekcZGpBso19sVHXW-WVseGTcAYs4Lq_-POLhh5MhtKNDhS3AUb02Tyqm5q6UNoXYp2hKrxPGExlRyNQ",
+        "avatar": "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/49ec1464-d899-400a-b608-c48c76b500d2/ddlby97-f31bd202-49ef-4391-995a-e08a03e9a0f8.jpg/v1/fill/w_900,h_900,q_75,strp/baby_yoda_by_patrickbrown_ddlby97-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3siaGVpZ2h0IjoiPD05MDAiLCJwYXRoIjoiXC9mXC80OWVjMTQ2NC1kODk5LTQwMGEtYjYwOC1jNDhjNzZiNTAwZDJcL2RkbGJ5OTctZjMxYmQyMDItNDllZi00MzkxLTk5NWEtZTA4YTAzZTlhMGY4LmpwZyIsIndpZHRoIjoiPD05MDAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.7bOQXtROBbXvM_k9pGmUYmE-wb97rfR92tgN1xj1wNk",
+        "token": "fFJPddV3dD0:APA91bFHNMc0pbgcAZtoDFI53aUQ4_3wIyEPFrL_tll1UBituhaGbNgzFwCaqoEq9jCONR-0EawXkoCJyjNxXhJl4Yy4bi8jTPFAixIFFjmfdU7OAH1pM6BGjKNz1-63_66XKGefz12m",
         "friends": {
             "room_1": {
                 "id": "profile_2",
                 "added": 1594532407647,
-                "last_change": 1594733091854,
+                "last_change": 1594791258411,
                 "messages": [
                     {
-                        "type": "send",
-                        "text": "Hello",
+                        "type": "received",
+                        "text": "dwqdwq",
                         "opened": true,
-                        "ts": 1594723465877
+                        "ts": 1594786418784
                     },
                     {
                         "type": "received",
-                        "text": "Hello",
+                        "text": "asdwq",
                         "opened": true,
-                        "ts": 1594723497093
+                        "ts": 1594786500691
                     },
                     {
                         "type": "send",
-                        "text": "eajseqw",
+                        "text": "Iooiodild",
                         "opened": true,
-                        "ts": 1594726468982
+                        "ts": 1594789928411
                     },
                     {
                         "type": "send",
-                        "text": "helloooo",
+                        "text": "Kwkwnnw",
                         "opened": true,
-                        "ts": 1594727624427
+                        "ts": 1594789930432
                     },
                     {
                         "type": "send",
-                        "text": "hellooooooooooooooooo",
+                        "text": "Kkekekke",
                         "opened": true,
-                        "ts": 1594727639242
-                    },
-                    {
-                        "type": "send",
-                        "text": "hello",
-                        "opened": true,
-                        "ts": 1594731073579
+                        "ts": 1594789936177
                     },
                     {
                         "type": "received",
-                        "text": "Hello",
-                        "opened": true,
-                        "ts": 1594731091013
-                    },
-                    {
-                        "type": "send",
-                        "text": "Hej",
-                        "opened": true,
-                        "ts": 1594732933504
-                    },
-                    {
-                        "type": "received",
-                        "text": "Hhgghggg ut om",
-                        "opened": true,
-                        "ts": 1594733054390
-                    },
-                    {
-                        "type": "send",
-                        "text": "Oj i ha g",
-                        "opened": true,
-                        "ts": 1594733062127
-                    },
-                    {
-                        "type": "send",
-                        "text": "It yttuj",
-                        "opened": true,
-                        "ts": 1594733067827
-                    },
-                    {
-                        "type": "send",
-                        "text": "U ut ui u",
-                        "opened": true,
-                        "ts": 1594733078657
-                    },
-                    {
-                        "type": "received",
-                        "text": "Yghg i kg y",
+                        "text": "dawqdqw",
                         "opened": false,
-                        "ts": 1594733091854
+                        "ts": 1594791258411
                     }
                 ]
             },
             "room_2": {
                 "id": "profile_3",
                 "added": 1594532407647,
-                "last_change": 1594709476083,
+                "last_change": 1594773217277,
                 "messages": [
                     {
                         "type": "send",
@@ -119,6 +78,18 @@
                         "text": "Hello",
                         "opened": true,
                         "ts": 1594709476083
+                    },
+                    {
+                        "type": "send",
+                        "text": "Testo",
+                        "opened": true,
+                        "ts": 1594773008975
+                    },
+                    {
+                        "type": "send",
+                        "text": "Logik",
+                        "opened": true,
+                        "ts": 1594773217277
                     }
                 ]
             }
@@ -128,107 +99,215 @@
         "name": "J",
         "username": "babe",
         "password": "babe123",
+        "avatar": "https://i.pinimg.com/originals/85/73/67/857367b94d212135510084f9802e621c.jpg",
         "room": false,
         "friends": {
             "room_1": {
                 "id": "profile_1",
                 "added": 1594532407647,
-                "last_change": 1594733091854,
+                "last_change": 1594791258411,
                 "messages": [
                     {
+                        "type": "send",
+                        "text": "Jljvh",
+                        "opened": true,
+                        "ts": 1594772966560,
+                        "save": true
+                    },
+                    {
+                        "type": "received",
+                        "text": "Heelo",
+                        "opened": true,
+                        "ts": 1594772973767,
+                        "save": true
+                    },
+                    {
+                        "type": "received",
+                        "text": "Kjghjlnj",
+                        "opened": true,
+                        "ts": 1594773072831,
+                        "save": true
+                    },
+                    {
                         "type": "received",
                         "text": "Hello",
                         "opened": true,
-                        "ts": 1594723465877
+                        "ts": 1594773474950,
+                        "save": true
                     },
                     {
                         "type": "send",
-                        "text": "Hello",
-                        "opened": true,
-                        "ts": 1594723497093
-                    },
-                    {
-                        "type": "received",
-                        "text": "eajseqw",
-                        "opened": true,
-                        "ts": 1594726468982
-                    },
-                    {
-                        "type": "received",
-                        "text": "helloooo",
-                        "opened": true,
-                        "ts": 1594727624427
-                    },
-                    {
-                        "type": "received",
-                        "text": "hellooooooooooooooooo",
-                        "opened": true,
-                        "ts": 1594727639242
-                    },
-                    {
-                        "type": "received",
-                        "text": "hello",
-                        "opened": true,
-                        "ts": 1594731073579
-                    },
-                    {
-                        "type": "send",
-                        "text": "Hello",
-                        "opened": true,
-                        "ts": 1594731091013
-                    },
-                    {
-                        "type": "received",
                         "text": "Hej",
                         "opened": true,
-                        "ts": 1594732933504
+                        "ts": 1594773494497
                     },
                     {
                         "type": "send",
-                        "text": "Hhgghggg ut om",
+                        "text": "Hejq ca dhg",
                         "opened": true,
-                        "ts": 1594733054390
-                    },
-                    {
-                        "type": "received",
-                        "text": "Oj i ha g",
-                        "opened": true,
-                        "ts": 1594733062127
-                    },
-                    {
-                        "type": "received",
-                        "text": "It yttuj",
-                        "opened": false,
-                        "ts": 1594733067827
-                    },
-                    {
-                        "type": "received",
-                        "text": "U ut ui u",
-                        "opened": false,
-                        "ts": 1594733078657
+                        "ts": 1594773499396
                     },
                     {
                         "type": "send",
-                        "text": "Yghg i kg y",
+                        "text": "hej",
                         "opened": true,
-                        "ts": 1594733091854
+                        "ts": 1594775429802
+                    },
+                    {
+                        "type": "received",
+                        "text": "Ooo",
+                        "opened": true,
+                        "ts": 1594775484181
+                    },
+                    {
+                        "type": "received",
+                        "text": "Oo",
+                        "opened": true,
+                        "ts": 1594775501719
+                    },
+                    {
+                        "type": "received",
+                        "text": "Hello",
+                        "opened": true,
+                        "ts": 1594775732982
+                    },
+                    {
+                        "type": "received",
+                        "text": "Kwjje",
+                        "opened": true,
+                        "ts": 1594775734704
+                    },
+                    {
+                        "type": "received",
+                        "text": "Wjwjjw",
+                        "opened": true,
+                        "ts": 1594775736074
+                    },
+                    {
+                        "type": "received",
+                        "text": "Dkkwndm",
+                        "opened": true,
+                        "ts": 1594775748090
+                    },
+                    {
+                        "type": "send",
+                        "text": "wqdwq",
+                        "opened": true,
+                        "ts": 1594776407285
+                    },
+                    {
+                        "type": "received",
+                        "text": "Jdkwkbrje",
+                        "opened": true,
+                        "ts": 1594776807362
+                    },
+                    {
+                        "type": "received",
+                        "text": "Jdjskbfe",
+                        "opened": true,
+                        "ts": 1594776825102
+                    },
+                    {
+                        "type": "send",
+                        "text": "haeajdwq",
+                        "opened": true,
+                        "ts": 1594776948680
+                    },
+                    {
+                        "type": "send",
+                        "text": "45y45y45",
+                        "opened": true,
+                        "ts": 1594776970308
+                    },
+                    {
+                        "type": "received",
+                        "text": "Hejjlsjsnw",
+                        "opened": true,
+                        "ts": 1594777066818
+                    },
+                    {
+                        "type": "received",
+                        "text": "Hugh kkgu",
+                        "opened": true,
+                        "ts": 1594781219133
+                    },
+                    {
+                        "type": "received",
+                        "text": "Oooo",
+                        "opened": true,
+                        "ts": 1594781287079
+                    },
+                    {
+                        "type": "received",
+                        "text": "Snabb",
+                        "opened": true,
+                        "ts": 1594781289997
+                    },
+                    {
+                        "type": "received",
+                        "text": "Ooooo faaaaaast",
+                        "opened": true,
+                        "ts": 1594781340686
+                    },
+                    {
+                        "type": "received",
+                        "text": "Dags för linee",
+                        "opened": true,
+                        "ts": 1594781345183
+                    },
+                    {
+                        "type": "send",
+                        "text": "dwqdwq",
+                        "opened": true,
+                        "ts": 1594786418784
+                    },
+                    {
+                        "type": "send",
+                        "text": "asdwq",
+                        "opened": true,
+                        "ts": 1594786500691
+                    },
+                    {
+                        "type": "received",
+                        "text": "Iooiodild",
+                        "opened": true,
+                        "ts": 1594789928411
+                    },
+                    {
+                        "type": "received",
+                        "text": "Kwkwnnw",
+                        "opened": true,
+                        "ts": 1594789930432
+                    },
+                    {
+                        "type": "received",
+                        "text": "Kkekekke",
+                        "opened": true,
+                        "ts": 1594789936177
+                    },
+                    {
+                        "type": "send",
+                        "text": "dawqdqw",
+                        "opened": true,
+                        "ts": 1594791258411
                     }
                 ]
             }
         },
-        "token": "dAcJ1O0W9GM:APA91bEoBGmsL1YjQg1llcgYmSjIk-8_JfRuMqJNcow7XfpPzVqCEwoACqiB7hlLGqo8iTGx9fHg16eIB8bJHh77rOGrBYIicizx9o3bgeHfi5Xq9Mf-JY3Bn27ay2DMt0AfC0-E6b5C"
+        "token": "fkJy9Lg8nYs:APA91bHlsxlW8Y7cAvMDZMt4-RJn6ZxZM8nN0REEU4aXCMvgdEm81Sp0urn8b4HncbdPnuJCOIrxfl9jZY6ga-H3PwBpsPowC_4dNfTgnE7u5X8tWb1A1OG3YBUttz_CWBC7n2I2cPZa"
     },
     "profile_3": {
         "name": "Lovinator",
         "username": "lovdel",
         "password": "lovi123",
+        "avatar": "https://image.winudf.com/v2/image1/Y29tLmJhYnkueW9kYS5zdGlja2Vycy53YXN0aWNrZXJhcHBzX2ljb25fMTU4MTk5OTgxNV8wMDc/icon.png?w=170&fakeurl=1",
         "room": false,
         "token": false,
         "friends": {
             "room_2": {
                 "id": "profile_1",
                 "added": 1594532407647,
-                "last_change": 1594709476083,
+                "last_change": 1594773217277,
                 "messages": [
                     {
                         "type": "received",
@@ -271,6 +350,18 @@
                         "text": "Hello",
                         "opened": false,
                         "ts": 1594709476083
+                    },
+                    {
+                        "type": "received",
+                        "text": "Testo",
+                        "opened": false,
+                        "ts": 1594773008975
+                    },
+                    {
+                        "type": "received",
+                        "text": "Logik",
+                        "opened": false,
+                        "ts": 1594773217277
                     }
                 ]
             }

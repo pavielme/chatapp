@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Tab, Navbar, NavTitle, Messagebar, Link, NavRight, Popover, List, ListItem, ListButton
+  Tab, Navbar, NavTitle, Messagebar, Link, NavRight, Popover, List, ListItem, ListButton, Icon, Badge, Preloader, Block
 } from 'framework7-react';
 
 class Message extends React.Component {
@@ -12,6 +12,8 @@ class Message extends React.Component {
             marked: [],
             inRoom: false,
             targetTyping: false,
+            messageHeight: document.body.clientHeight,
+            keyboardHeight: false,
         }
 
         const { socket } = this.$f7.passedParams;
@@ -35,27 +37,26 @@ class Message extends React.Component {
         });
     }
 
+    componentDidMount(){
+       
+    }
     messageHandler(state, index){
         if(state === 'start'){
-            if(!this.state.timer){
-                this.setState({
-                    timer: new Date().getTime()
-                });
+                const actionHandler = () => {
 
-                setTimeout(() => {
-                    if(this.state.timer){
-                        var isMarked = false;
-                        for(var i in this.state.marked){
-                            if(this.state.marked[i] === index){
-                                isMarked = i;
-                            }
-                        }
 
-                        if(isMarked) {
+                         var isMarked = false;
+                         for (var i in this.state.marked) {
+                             if (this.state.marked[i] === index) {
+                                 isMarked = i;
+                             }
+                         }
+
+                        if (isMarked) {
                             var marked = this.state.marked;
                             marked.splice(isMarked, 1);
                             this.setState({
-                               marked: marked,
+                                marked: marked,
                             });
 
                             this.$$('.msg_' + index).removeClass('marked');
@@ -70,20 +71,12 @@ class Message extends React.Component {
                         }
 
                         console.log(this.state.marked)
+                    
+                }
 
-                        this.setState({
-                            timer: false
-                        });
-                    }
-                },400);
-            }
-        } else if(state === 'release'){
-            if(this.state.timer){
-                this.setState({
-                    timer: false
-                });
-            }
-        }
+                actionHandler();
+                
+        } 
     }
 
     allowSlide(state){
@@ -155,12 +148,25 @@ class Message extends React.Component {
             ];
 
             socket.emit('send message', id, messageTarget, text, (res) => {
-                console.log(res);
+                
             });
+
+            var last = this.props.appPage.state.messagesData.length;
 
             this.props.appPage.setState({
                 messagesData: [...this.props.appPage.state.messagesData, ...messageToSend],
             });
+
+            setTimeout(() => {
+                
+                var removeani = this.props.appPage.state.messagesData;
+
+                removeani[last].animation = false;
+
+                this.props.appPage.setState({
+                    messagesData: removeani,
+                });
+            }, 500);
 
             messagebar.clear();
             messagebar.focus();
@@ -169,7 +175,6 @@ class Message extends React.Component {
         }
         
     }
-
     isTypingHandler(){
         var messagebar = this.$f7.messagebar.get('.messageBar');
         var text = messagebar.getValue().replace(/\n/g, '/n').trim();
@@ -182,18 +187,27 @@ class Message extends React.Component {
     }
 
     clearChat(){
+        if(this.props.appPage.state.messagesData.length > 0){
         const { messageTarget } = this.props.appPage.state;
         const { socket } = this.$f7.passedParams;
 
         socket.emit('clear room', this.props.appPage.state.user.id, messageTarget.room);
 
-        this.props.appPage.setState({
-            messagesData: []
-        });
+        var removeLoader = this.$f7.dialog.preloader('Tar bort ' + this.props.appPage.state.messagesData.length + ' meddelande');
+        setTimeout(() => {
+                this.props.appPage.setState({
+                    messagesData: []
+                });
+        
+                this.setState({
+                    marked: []
+                })
 
-        this.setState({
-            marked: []
-        })
+                removeLoader.close();
+        },1000);
+        } else {
+            this.$f7.dialog.alert('Inga meddelande att ta bort')
+        }
     }
     isToday(ts){
         var today = new Date().toLocaleDateString('sv-SE', { weekday: 'long', month: 'long', day: 'numeric' })
@@ -222,6 +236,166 @@ class Message extends React.Component {
         }
     }
 
+    toggleMark(){
+        if(this.state.marked.length === this.props.appPage.state.messagesData.length) {
+            var all = this.props.appPage.state.messagesData;
+
+            var mark = [];
+
+            for(var i in all){
+                this.$$('.msg_' + i).removeClass('marked');
+            }
+
+            this.setState({
+                marked: mark,
+            });
+        } else {
+            var all = this.props.appPage.state.messagesData;
+
+            var mark = [];
+
+            for(var i in all){
+                this.$$('.msg_' + i).addClass('marked');
+                mark.push(parseInt(i));
+            }
+
+            this.$$('.msg_' + i).addClass('marked');
+            this.setState({
+                marked: mark,
+            });
+        }
+    }
+
+    removeSelected(){
+        if(this.state.marked.length > 0){
+            var removeArray = this.state.marked.sort((a,b) => {
+                return a - b;
+            });
+
+            for (var i in removeArray) {
+                this.$$('.msg_' + removeArray[i]).removeClass('marked');
+                
+            }
+
+            this.setState({
+                marked: [],
+            });    
+
+
+            setTimeout(() => {
+                var messages = this.props.appPage.state.messagesData;
+
+                for (var i = removeArray.length - 1; i >= 0; i--) {
+                    messages.splice(removeArray[i], 1);
+                }
+
+                this.props.appPage.setState({
+                    messagesData: messages
+                });
+            }, 500);
+            
+
+        }
+           
+    }
+    copyMessage(index = false){
+        var marked = this.state.marked;
+
+        if(marked.length === 1) {
+            var text = this.props.appPage.state.messagesData[marked[0]].text;
+
+            console.log(text);
+
+            this.$f7.toast.create({
+                icon: app.theme === 'ios' ? '<i class="f7-icons">doc_on_doc</i>' : '<i class="f7-icons">doc_on_doc</i>',
+                text: 'Kopierat',
+                position: 'center',
+                closeTimeout: 2000,
+            }).open();
+
+            this.$$('.msg_' + marked[0]).addClass('copy');
+
+            setTimeout(() => {
+                this.$$('.msg_' + marked[0]).removeClass('copy'); 
+            }, 400)
+        } else if (index.toString() !== 'false') {
+            var text = this.props.appPage.state.messagesData[index].text;
+
+            console.log(text);
+
+            this.$f7.toast.create({
+                icon: app.theme === 'ios' ? '<i class="f7-icons">doc_on_doc</i>' : '<i class="f7-icons">doc_on_doc</i>',
+                text: 'Kopierat',
+                position: 'center',
+                closeTimeout: 2000,
+            }).open();
+
+            this.$$('.msg_' + index.toString()).addClass('copy');
+
+            setTimeout(() => {
+                this.$$('.msg_' + index.toString()).removeClass('copy');
+            }, 400)
+        }
+    }
+
+    KeyboardShow(){
+        // var client = this.state.messageHeight;
+
+        // var keyboardHeight = client - document.body.clientHeight + 200;
+
+        // this.setState({
+        //     keyboardHeight: keyboardHeight,
+        // })
+
+        // var container = this.$$('.Custom-MessageContent');
+        // container[0].scrollBy(0, keyboardHeight)
+
+        setTimeout(() => {
+            this.scrollToBottom();
+        }, 100);
+        
+    }
+
+    KeyboardHide(){
+        // var keyboardHeight = this.state.keyboardHeight;
+
+        
+        // var container = this.$$('.Custom-MessageContent');
+        // var bottomPos = container.scrollTop();
+        // var scrollHeight = container[0].scrollHeight;
+
+        // container[0].scrollBy(0, -keyboardHeight)
+    }
+
+    isMarked(index){
+        var marked = this.state.marked;
+
+        var state = false;
+
+        for(var i in marked){
+            if(marked[i] === index){
+                state = true
+                break;
+            }
+        }
+
+        return state;
+    }
+
+    togglesave(index){
+        // const { socket } = this.$f7.passedParams;
+
+        // socket.emit('togglesave messages', this.props.appPage.state.user.id, this.props.appPage.state.messageTarget.room, index, (res) => {
+        //     var messages = this.props.appPage.state.messagesData;
+
+        //     messages[index].save = res;
+
+        //     this.props.appPage.setState({
+        //         messagesData: messages,
+        //     });
+        // });
+    }
+    
     render() {
       const { messageTarget, messagesData } = this.props.appPage.state;
 
@@ -235,15 +409,21 @@ class Message extends React.Component {
             >
                 <NavTitle>{ messageTarget ? messageTarget.user.name : '' }</NavTitle>
                 <NavRight>
-                    <Link popoverOpen=".popover-menu" iconIos="f7:ellipsis" iconMd="f7:ellipsis"></Link>
+                    <Link popoverOpen=".popover-menu" iconOnly>
+                        <Icon ios="f7:ellipsis" aurora="f7:ellipsis" md="f7:ellipsis">
+                            { this.state.marked.length > 0 ? ( 
+                                <Badge color="red">{ this.state.marked.length }</Badge> 
+                            ) : '' } 
+                        </Icon>
+                    </Link>
                     <Link onClick={() => this.closeChat()} iconIos="f7:chevron_right" iconMd="f7:chevron_right"></Link>
                 </NavRight>
             </Navbar>
             <Popover className="popover-menu">
             <List>
-                <ListButton color={this.state.marked.length === 1 ? '' : 'gray'} popoverClose={this.state.marked.length === 1 ? true : false } title="Kopiera" />
-                <ListButton popoverClose title="Markera alla" />
-                <ListButton color={this.state.marked.length > 0 ? 'red' : 'gray'} popoverClose={this.state.marked.length > 0 ? true : false } title={`Ta bort (${this.state.marked.length})`} />
+                <ListButton onClick={() => this.copyMessage() } color={this.state.marked.length === 1 ? '' : 'gray'} popoverClose={this.state.marked.length === 1 ? true : false } title="Kopiera" />
+                      <ListButton onClick={() => this.toggleMark()} color={this.props.appPage.state.messagesData.length > 0 ? '' : 'gray'} popoverClose={this.props.appPage.state.messagesData.length > 0 ? true : false } title={this.state.marked.length === this.props.appPage.state.messagesData.length ? this.props.appPage.state.messagesData.length > 0 ? 'Avmarkera alla' : 'Markera alla' : 'Markera alla' } />
+                <ListButton onClick={() => this.removeSelected() } color={this.state.marked.length > 0 ? 'red' : 'gray'} popoverClose={this.state.marked.length > 0 ? true : false } title={`Ta bort (${this.state.marked.length})`} />
                 <ListButton onClick={() => this.clearChat() } color="red" popoverClose title="Rensa" />
             </List>
             </Popover>
@@ -256,27 +436,51 @@ class Message extends React.Component {
                     { messagesData.map((item, index) => (
                         <div key={index} className={`messagebox ${index === 0 ? 'firstmessage' : index === messagesData.length - 1 ? 'lastmessage' : ''} ${item.type === 'send' ? 'messageTypeSend' : 'messageTypeReceived'}`}>
                             <div className={`messagedate ${this.isPrevDate(index, item) ? 'hide' : 'show'}`}>{ this.isToday(item.ts) }</div>
-                            <div className={`messagename ${item.animation ? 'animate__animated animate__fadeIn animate__faster' : 'animate__animated animate__fadeIn animate__faster'}`}>{ this.showName(item, index, messageTarget ? messageTarget.user.name : false) }</div>
+                            
+                            <div className={`messagename`}>{ this.showName(item, index, messageTarget ? messageTarget.user.name : false) }</div>
                             <div 
-                            onTouchStart={() => this.messageHandler('start', index) }
-                            onTouchEnd={() => this.messageHandler('release', index) }
-                            className={`messagecontainer msg_${index} ${item.animation ? 'animate__animated animate__zoomIn animate__faster' : 'animate__animated animate__fadeIn animate__faster'}`}>
+                            onClick={() => this.messageHandler('start', index) }
+               
+                                className={`messagecontainer bubble msg_${index} ${item.animation ? 'animate__animated animate__zoomIn animate__faster' : ''}`}>
                                     {item.text}
-                                
                             <div className="messagetime">{ new Date(item.ts).toLocaleTimeString('sv-SE', {
                                 hour12: false,
                                 hour: '2-digit',
                                 minute: '2-digit'
-                            }) }</div>
+                            }) } </div>
+                            </div>
+
+                            {/* {item.save ? (
+                                <div className={`messagesave`}>Sparad</div>
+                            ) : ''}     */}
+
+                            <div className={`messageHandlerBox ${ this.isMarked(index) && this.state.marked.length === 1 ? 'show' : '' }`}>
+                                <div className={`messagecontainer copybutton`} onClick={() => this.copyMessage(index)}>
+                                    <Link className="copycustombutton" iconIos="f7:doc_on_doc" iconMd="f7:doc_on_doc" iconSize="18"></Link>
+                                    
+                                 </div>
+
+                                <div className={`messagecontainer savebutton`} onClick={() => this.togglesave(index)}>
+                                    <Link className="copycustombutton" iconIos={item.save ? 'f7:star_fill' : 'f7:star'} iconMd={item.save ? 'f7:star_fill' : 'f7:star'}  iconSize="18"></Link>
+
+                                </div>
+
+                                <div className={`messagecontainer deletebutton`} onClick={() => this.removeSelected()}>
+                                    <Link className="removecustombutton" iconIos="f7:trash" iconMd="f7:trash" iconSize="18"></Link>
+                                </div>
                             </div>
                             
                         </div>
                     )) }
                 </div>
-
+                { this.$f7.passedParams.socket.connected ? '' : (
+                  <Block className="text-align-center">
+                      <Preloader color="multi"></Preloader>
+                  </Block>
+                ) }
                 </div>
-                
-                <img className={`inRoom ${this.state.inRoom ? 'isTrue' : ''} ${this.state.targetTyping ? 'isTyping' : ''} animate__animated animate__pulse animate__infinite`} src="https://image.winudf.com/v2/image1/Y29tLmJhYnkueW9kYS5zdGlja2Vycy53YXN0aWNrZXJhcHBzX2ljb25fMTU4MTk5OTgxNV8wMDc/icon.png?w=170&fakeurl=1" width="44"></img>
+    
+                <img className={`inRoom ${this.state.inRoom ? 'isTrue' : ''} ${this.state.targetTyping ? 'isTyping' : ''} animate__animated animate__pulse animate__infinite`} src={this.props.appPage.state.messageTarget ? this.props.appPage.state.messageTarget.user.avatar : ''} width="44"></img>
                
             <Messagebar
                 noShadow={true}
@@ -284,6 +488,8 @@ class Message extends React.Component {
                 className="messageBar"
                 placeholder="Meddelande"
                 onInput={() => this.isTypingHandler() }
+                  onFocus={() => this.KeyboardShow()}
+                onBlur={() => this.KeyboardHide() }
             >
                 <Link
                     iconIos="f7:camera_fill"
