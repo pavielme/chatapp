@@ -37,8 +37,9 @@
       <preference name="phonegap-version" value="cli-9.0.0" />
       <preference name="SplashMaintainAspectRatio" value="true" />
       <preference name="BackgroundColor" value="0xFF121212"/>
-      <preference name="AutoHideSplashScreen" value="true" /> <!-- defaults to "true" -->
-      <preference name="SplashScreenDelay" value="3000" /> <!-- defaults to "3000" -->
+      <preference name="AutoHideSplashScreen" value="true" />
+      <preference name="SplashScreenDelay" value="3000" />
+
       <splash density="land-hdpi" src="res/screen/android/drawable-hdpi/screen.png" />
       <splash density="land-mdpi" src="res/screen/android/drawable-mdpi/screen.png" />
       <splash density="land-xhdpi" src="res/screen/android/drawable-xhdpi/screen.png" />
@@ -92,9 +93,7 @@
 
     <preference name="DisallowOverscroll" value="true" />
     <preference name="BackupWebStorage" value="local" />
-    <preference name="AutoHideSplashScreen" value="false" />
     <preference name="ShowSplashScreenSpinner" value="false" />
-    <preference name="SplashScreenDelay" value="0" />
     <preference name="Suppresses3DTouchGesture" value="true" />
     <preference name="Allow3DTouchLinkPreview" value="false" />
     <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine" />
