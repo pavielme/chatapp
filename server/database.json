@@ -5,12 +5,12 @@
         "password": "paviel123",
         "room": false,
         "avatar": "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/49ec1464-d899-400a-b608-c48c76b500d2/ddlby97-f31bd202-49ef-4391-995a-e08a03e9a0f8.jpg/v1/fill/w_900,h_900,q_75,strp/baby_yoda_by_patrickbrown_ddlby97-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3siaGVpZ2h0IjoiPD05MDAiLCJwYXRoIjoiXC9mXC80OWVjMTQ2NC1kODk5LTQwMGEtYjYwOC1jNDhjNzZiNTAwZDJcL2RkbGJ5OTctZjMxYmQyMDItNDllZi00MzkxLTk5NWEtZTA4YTAzZTlhMGY4LmpwZyIsIndpZHRoIjoiPD05MDAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.7bOQXtROBbXvM_k9pGmUYmE-wb97rfR92tgN1xj1wNk",
-        "token": "clR8SHFfkIM:APA91bEY3Zu-gy4mE9I6VKV3UBBnZpJf454H_CffOzzFla6PSpXC3wGp7Ohd9nSEaudPgz17pxH9yUjDfB4xNJqNdFlAdrg9eaJDLCAXHPlchEFiX38vRUt6fIbycixrz-Bpexlsw9mS",
+        "token": "cVj5WreInUM:APA91bHZMplIQMWzqrj3CmASv8ANq881MFWvTMdeNDKXajJ2KmbYfT2d7yD41kup4ng4Ea8ZOBsjWt85UBqvs9nu9IhMCiJwxZ7dkXjOG92GHDvFwUVyFwWyOyoy4shCcLobW4FeQ5nQ",
         "friends": {
             "room_1": {
                 "id": "profile_2",
                 "added": 1594532407647,
-                "last_change": 1594807474617,
+                "last_change": 1594807875920,
                 "messages": [
                     {
                         "type": "send",
@@ -69,15 +69,33 @@
                     {
                         "type": "received",
                         "text": "fewfwe",
-                        "opened": false,
+                        "opened": true,
                         "ts": 1594807474617
+                    },
+                    {
+                        "type": "send",
+                        "text": "Va gör du",
+                        "opened": true,
+                        "ts": 1594807647608
+                    },
+                    {
+                        "type": "send",
+                        "text": "Ooooo",
+                        "opened": true,
+                        "ts": 1594807875211
+                    },
+                    {
+                        "type": "send",
+                        "text": "Snööööö",
+                        "opened": true,
+                        "ts": 1594807875920
                     }
                 ]
             },
             "room_2": {
                 "id": "profile_3",
                 "added": 1594532407647,
-                "last_change": 1594801903590,
+                "last_change": 1594807875922,
                 "messages": [
                     {
                         "type": "send",
@@ -132,6 +150,12 @@
                         "text": "Vfvdvd",
                         "opened": true,
                         "ts": 1594801903590
+                    },
+                    {
+                        "type": "send",
+                        "text": "Snöööö",
+                        "opened": true,
+                        "ts": 1594807875922
                     }
                 ]
             }
@@ -142,18 +166,36 @@
         "username": "babe",
         "password": "babe123",
         "avatar": "https://i.pinimg.com/originals/85/73/67/857367b94d212135510084f9802e621c.jpg",
-        "room": "room_1",
+        "room": false,
         "friends": {
             "room_1": {
                 "id": "profile_1",
                 "added": 1594532407647,
-                "last_change": 1594807474617,
+                "last_change": 1594807875920,
                 "messages": [
                     {
                         "type": "send",
                         "text": "fewfwe",
                         "opened": true,
                         "ts": 1594807474617
+                    },
+                    {
+                        "type": "received",
+                        "text": "Va gör du",
+                        "opened": true,
+                        "ts": 1594807647608
+                    },
+                    {
+                        "type": "received",
+                        "text": "Ooooo",
+                        "opened": true,
+                        "ts": 1594807875211
+                    },
+                    {
+                        "type": "received",
+                        "text": "Snööööö",
+                        "opened": true,
+                        "ts": 1594807875920
                     }
                 ]
             }
@@ -171,7 +213,7 @@
             "room_2": {
                 "id": "profile_1",
                 "added": 1594532407647,
-                "last_change": 1594801903590,
+                "last_change": 1594807875922,
                 "messages": [
                     {
                         "type": "received",
@@ -244,6 +286,12 @@
                         "text": "Vfvdvd",
                         "opened": false,
                         "ts": 1594801903590
+                    },
+                    {
+                        "type": "received",
+                        "text": "Snöööö",
+                        "opened": false,
+                        "ts": 1594807875922
                     }
                 ]
             }

@@ -526,7 +526,11 @@ class Message extends React.Component {
 
                                 
                             </div>
-                     
+                            {item.notsended ? (    
+                            <div className="messagesave">
+                                <Preloader size="10" color="multi"></Preloader>
+                            </div>
+                            ) : '' }
                             {/* {item.save ? (
                                 <div className={`messagesave`}>Sparad</div>
                             ) : ''}     */}
@@ -550,11 +554,11 @@ class Message extends React.Component {
                         </div>
                     )) }
                 </div>
-                { this.$f7.passedParams.socket.connected ? '' : (
+                {/* { this.$f7.passedParams.socket.connected ? '' : (
                   <Block className="text-align-center">
-                      <Preloader color="multi"></Preloader>
+                          <Preloader color="multi"></Preloader>
                   </Block>
-                ) }
+                ) } */}
                 </div>
     
                 <img className={`inRoom ${this.state.inRoom ? 'isTrue' : ''} ${this.state.targetTyping ? 'isTyping' : ''} animate__animated animate__pulse animate__infinite`} src={this.props.appPage.state.messageTarget ? this.props.appPage.state.messageTarget.user.avatar : ''} width="44"></img>

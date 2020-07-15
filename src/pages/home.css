@@ -387,3 +387,8 @@ box-shadow: 0px 0px 12px -4px rgba(0,0,0,0.99);
     bottom:20px;
     width:100%;
 }
+
+.messagesave {
+    margin-left: 10px;
+    margin-right:10px;
+}
