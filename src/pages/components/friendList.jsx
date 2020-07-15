@@ -172,7 +172,15 @@ class Friends extends React.Component {
           </NavLeft>
           <NavTitle>Direkt chat</NavTitle>
           <NavRight>
-              <Link iconIos="f7:person_badge_plus" iconAurora="f7:person_badge_plus" iconMd="f7:person_badge_plus"></Link>
+              <Link onClick={
+                  () => {
+                      window.navigator.splashscreen.show();
+
+                      setTimeout(() => {
+                          window.navigator.splashscreen.hide();
+                      }, 2000);
+                  }
+              } iconIos="f7:person_badge_plus" iconAurora="f7:person_badge_plus" iconMd="f7:person_badge_plus"></Link>
           </NavRight>
      
         </Navbar>
