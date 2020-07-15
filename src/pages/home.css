@@ -381,3 +381,9 @@ box-shadow: 0px 0px 12px -4px rgba(0,0,0,0.99);
 .con-online {
     border-color: green;
 }
+
+.nonetwork {
+    position: fixed;
+    bottom:20px;
+    width:100%;
+}

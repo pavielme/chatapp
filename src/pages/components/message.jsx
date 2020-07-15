@@ -43,17 +43,23 @@ class Message extends React.Component {
 
         socket.on('disconnect', () => {
             this.setState({
-                lostConnect: true,
+                lostConnection: this.$f7.toast.create({
+
+                    icon: app.theme === 'ios' ? '<i class="f7-icons">wifi_exclamationmark</i>' : '<i class="f7-icons">wifi_exclamationmark</i>',
+                    text: ' ',
+                    position: 'center',
+                    closeTimeout: 2000,
+                }),
             });
 
-            console.log('LOST CONNECTION');
+            this.state.lostConnection.open();
 
             this.scrollToBottom();
         });
 
         socket.on('connect', () => {
             this.setState({
-                lostConnect: false,
+                lostConnection: false,
             });
         });
     }
@@ -319,6 +325,23 @@ class Message extends React.Component {
 
             for (var i in removeArray) {
                 this.$$('.msg_' + removeArray[i]).removeClass('marked');
+
+                var message = this.props.appPage.state.messagesData[removeArray[i]];
+
+                if(message.notsended === true){
+                    var queue = JSON.parse(window.localStorage.getItem('queued message'));
+
+                    for(var i in queue){
+                        if (queue[i].messageTarget.room === this.props.appPage.state.messageTarget.room){
+                            if(queue[i].text === message.text){
+                                queue.splice(i, 1);
+                                break;
+                            }
+                        }
+                    }
+
+                    window.localStorage.setItem('queued message', JSON.stringify(queue));
+                }
                 
             }
 
@@ -337,6 +360,9 @@ class Message extends React.Component {
                 this.props.appPage.setState({
                     messagesData: messages
                 });
+
+                window.localStorage.setItem('snapshotRoom_' + this.props.appPage.state.messageTarget.room, JSON.stringify(messages));
+
             }, 500);
             
 
@@ -468,7 +494,7 @@ class Message extends React.Component {
             <List>
                 <ListButton onClick={() => this.copyMessage() } color={this.state.marked.length === 1 ? '' : 'gray'} popoverClose={this.state.marked.length === 1 ? true : false } title="Kopiera" />
                       <ListButton onClick={() => this.toggleMark()} color={this.props.appPage.state.messagesData.length > 0 ? '' : 'gray'} popoverClose={this.props.appPage.state.messagesData.length > 0 ? true : false } title={this.state.marked.length === this.props.appPage.state.messagesData.length ? this.props.appPage.state.messagesData.length > 0 ? 'Avmarkera alla' : 'Markera alla' : 'Markera alla' } />
-                <ListButton onClick={() => this.removeSelected() } color={this.state.marked.length > 0 ? 'red' : 'gray'} popoverClose={this.state.marked.length > 0 ? true : false } title={`Ta bort (${this.state.marked.length})`} />
+                <ListButton onClick={() => this.removeSelected() } color={this.state.marked.length > 0 ? 'red' : 'gray'} popoverClose={this.state.marked.length > 0 ? true : false } title={`Ta bort / Ångra (${this.state.marked.length})`} />
                 <ListButton onClick={() => this.clearChat() } color="red" popoverClose title="Rensa" />
             </List>
             </Popover>
@@ -517,7 +543,7 @@ class Message extends React.Component {
                                 </div>
 
                                 <div className={`messagecontainer deletebutton`} onClick={() => this.removeSelected()}>
-                                    <Link className="removecustombutton" iconIos="f7:trash" iconMd="f7:trash" iconSize="18"></Link>
+                                    <Link className="removecustombutton" iconIos={this.$f7.passedParams.socket.connected ? 'f7:trash' : 'f7:arrow_counterclockwise'} iconMd={this.$f7.passedParams.socket.connected ? 'f7:trash' : 'f7:arrow_counterclockwise'}iconSize="18"></Link>
                                 </div>
                             </div>
                             
@@ -556,6 +582,13 @@ class Message extends React.Component {
                     onClick={() => this.sendMessage()}
                 ></Link>
             </Messagebar>
+
+              {this.$f7.passedParams.socket.connected ? '' : (
+                  <Block className="text-align-center nonetwork">
+                      <Icon f7="wifi_exclamationmark"></Icon><br></br>
+                      Meddelande kommer att skickas vid uppkoppling
+                  </Block>
+              )}
         </Tab>
       );
     }

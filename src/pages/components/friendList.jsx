@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Tab, Navbar, NavTitle, List, ListItem, NavRight, Link, Searchbar, Subnavbar, NavLeft
+  Tab, Navbar, NavTitle, List, ListItem, NavRight, Link, Searchbar, Subnavbar, NavLeft, Preloader, Block, Icon
 } from 'framework7-react';
 
 class Friends extends React.Component {
@@ -8,7 +8,8 @@ class Friends extends React.Component {
         super(props);
 
         this.state = {
-            touchstart: false
+            touchstart: false,
+            connect: false,
         }
     }
 
@@ -23,6 +24,21 @@ class Friends extends React.Component {
         connect.open();
 
         this.loadFriends(connect);
+
+        const { socket } = this.$f7.passedParams;
+
+        socket.on('disconnect', () => {
+            this.setState({
+                connect: false
+            });
+        });
+
+        socket.on('connect', () => {
+            this.setState({
+                connect: true
+            });
+        });
+
     }
 
     loadFriends(connect){
@@ -73,7 +89,7 @@ class Friends extends React.Component {
                     touchstart: false
                 });
 
-                if(duration < 300) {
+                if(duration < 500) {
                     this.$f7.swiper.get('.pageTabs').allowSlidePrev = true;
                     this.$f7.tab.show('#tab-1');
                     this.$f7.swiper.get('.pageTabs').allowSlidePrev = false;
@@ -160,6 +176,12 @@ class Friends extends React.Component {
           </NavRight>
      
         </Navbar>
+              {this.$f7.passedParams.socket.connected ? '' : (
+                  <Block className="text-align-center">
+                      <Preloader color="multi"></Preloader>
+                  </Block>
+              )}
+
         <List inset mediaList noHairlines noHairlinesBetween className="friendsList">
         { friends.map((item, index) => (
             <span 
@@ -182,6 +204,14 @@ class Friends extends React.Component {
             </span>
         )) }
         </List>
+
+              {this.$f7.passedParams.socket.connected ? '' : (
+                  <Block className="text-align-center nonetwork">
+                      <Icon f7="wifi_exclamationmark"></Icon><br />
+                      Nätverk saknas
+                  </Block>
+              )}
+        
         </Tab>
       );
     }
