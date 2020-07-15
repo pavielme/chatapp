@@ -100,7 +100,7 @@
         "username": "babe",
         "password": "babe123",
         "avatar": "https://i.pinimg.com/originals/85/73/67/857367b94d212135510084f9802e621c.jpg",
-        "room": false,
+        "room": true,
         "friends": {
             "room_1": {
                 "id": "profile_1",
