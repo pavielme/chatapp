@@ -1,6 +1,8 @@
 .listAvatar {
     object-fit: cover;
     border-radius: 50%;
+    width: 44px;
+    height: 44px;
 }
 
 .friendsList ul {

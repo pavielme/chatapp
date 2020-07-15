@@ -1,6 +1,8 @@
 .profileAvatar {
     border-radius: 50%;
     object-fit: cover;
+    width: 124px;
+    height: 124px;
 }
 
 .profileName {

@@ -63,8 +63,7 @@ class settings extends React.Component {
         }).open();
     }
 
-    openCamera() {
-        
+    selectImage() {
         navigator.camera.getPicture((imageData) => {
             const { socket } = this.$f7.passedParams;
             socket.open();
@@ -84,10 +83,47 @@ class settings extends React.Component {
             socket.emit('change avatar', this.state.user.id, image);
 
         }, (message) => {
-            alert('Ett fel inträffat');
+            
         }, {
             quality: 50,
-            destinationType: Camera.DestinationType.DATA_URL
+            sourceType: Camera.PictureSourceType.PHOTOLIBRARY, destinationType: Camera.DestinationType.DATA_URL,
+            allowEdit: true,
+            correctOrientation: true,
+            targetWidth: 300,
+            targetHeight: 300,
+
+        }); 
+    }
+    openCamera() {
+        
+        navigator.camera.getPicture((imageData) => {
+            const { socket } = this.$f7.passedParams;
+            socket.open();
+
+            var image = "data:image/jpeg;base64," + imageData;
+
+            const updateUser = this.state.user;
+
+            updateUser.avatar = image;
+
+            window.localStorage.setItem('loginData', JSON.stringify(updateUser));
+
+            this.setState({
+                user: updateUser
+            });
+
+            socket.emit('change avatar', this.state.user.id, image);
+
+        }, (message) => {
+            
+        }, {
+            quality: 50,
+            destinationType: Camera.DestinationType.DATA_URL,
+            allowEdit: true,
+            correctOrientation: true,
+            targetWidth: 300,
+            targetHeight: 300,
+
         });
 
    
